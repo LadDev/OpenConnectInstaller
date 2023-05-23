@@ -114,10 +114,12 @@ router.get("/show/ip/bans", async (req, res) => {
                 const data = await parseData(JSON.parse(jsonString));
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
+                console.error(e)
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
             }
         });
     } catch (error) {
+        console.error(error)
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 
