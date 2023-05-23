@@ -10,6 +10,8 @@ router.get("/status", async (req, res) => {
         command.stdout.on('data', (data) => {
             const tmpDataArray = data.toString().replace("\t", "").split("\n");
 
+            console.log(tmpDataArray)
+
             let dataObj = {
                 general_info: {
                     status: "offline",
