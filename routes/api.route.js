@@ -10,7 +10,7 @@ router.get("/status", async (req, res) => {
         command.stdout.on('data', (data) => {
             const tmpDataArray = data.toString().split("\n");
 
-            for(const d of dataObj){
+            for(const d of tmpDataArray){
                 console.info(d)
             }
 
