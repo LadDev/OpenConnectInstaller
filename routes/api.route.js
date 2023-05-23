@@ -108,6 +108,7 @@ router.get("/show/ip/bans", async (req, res) => {
     try {
         exec('occtl --json show ip bans', async (error, stdout) => {
             try{
+                console.error(stdout)
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
