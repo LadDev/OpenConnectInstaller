@@ -45,7 +45,12 @@ router.get("/status", async (req, res) => {
                 const arrD = d.split(":")
                 if (arrD.length >= 2) {
                     const title = arrD[0].replace("\t", "").trim()
-                    const value = arrD[1].replace("\t", "").trim()
+                    let value = arrD[1].replace("\t", "").trim()
+
+                    if(arrD.length>2){
+                        const newArr = arrD.slice(1);
+                        value=newArr.join(":")
+                    }
 
                     console.log([title,value])
 
