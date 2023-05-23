@@ -1,6 +1,8 @@
 const {Router} = require("express")
 const router = Router()
 const {exec} = require('child_process');
+const fs = require('fs');
+const crypto = require('crypto');
 
 
 const modifyData = async (data) => {
@@ -151,6 +153,30 @@ router.get("/show/iroutes", async (req, res) => {
                 return res.status(200).json({code: 0, data: data});
             }catch (e) {
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
+router.post("/add/user", async (req, res) => {
+    try {
+
+        const {username,password,group} = req.body
+        const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+
+        const userEntry = `${username}:${group}:${hashedPassword}\n`;
+
+        fs.appendFileSync('/etc/ocserv/ocpasswd', userEntry);
+
+        exec('occtl --json show users', async (error, stdout) => {
+            try{
+                const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0, users: data});
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
             }
         });
     } catch (error) {
