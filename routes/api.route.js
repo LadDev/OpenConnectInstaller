@@ -2,15 +2,40 @@ const {Router} = require("express")
 const router = Router()
 const {spawn, exec} = require('child_process');
 
+
+const modifyData = async (data) => {
+    let obj = {...data};
+
+    let modifiedObj = {};
+
+    for (let prop in obj) {
+        let newProp = prop.replace(/[^\w]/g, '').toLowerCase();
+        modifiedObj[newProp] = obj[prop];
+    }
+
+    return modifiedObj
+}
+
+const parseData = async (data) => {
+    let modifiedData = null
+    if(data instanceof Array){
+        modifiedData = []
+        for(const obj of data){
+            modifiedData.push(modifyData(data))
+        }
+    }else if(data instanceof Object){
+        modifiedData =  await modifyData(data)
+    }
+
+    return modifiedData
+}
+
 router.get("/show/status", async (req, res) => {
     try {
-        exec('occtl --json show status', (error, stdout, stderr) => {
+        exec('occtl --json show status', async (error, stdout, stderr) => {
             try{
-                console.log(stdout)
-                // const lastIndex = stdout.lastIndexOf(',');
-                // let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
-
-                const data = JSON.parse(stdout);
+                const data = await parseData(JSON.parse(stdout));
+                console.log(data)
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
                 console.error(e)
