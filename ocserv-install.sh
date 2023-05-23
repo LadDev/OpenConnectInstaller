@@ -4,12 +4,18 @@
 
 echo "Настройки сервера взяты из статьи на сайте: https://www.linuxbabe.com/ubuntu/openconnect-vpn-server-ocserv-ubuntu-20-04-lets-encrypt"
 
+current_hostname=$(hostname)
+
 # Обновление системы
 sudo apt update && sudo apt upgrade -y
 
 # Запрос домена
 read -p "Введите домен или IP-адрес сервера (нажмите Enter для использования значения по умолчанию example.com): " domain
 domain=${domain:-example.com}
+
+# Запрос хоста
+read -p "Введите имя хоста (нажмите Enter для использования значения по умолчанию $current_hostname): " hostingname
+hostingname=${hostingname:-$current_hostname}
 
 #Запрос e-mail
 read -p "Введите email (нажмите Enter для использования значения по умолчанию you@example.com): " email
@@ -837,3 +843,15 @@ sudo ocpasswd -c /etc/ocserv/ocpasswd $username
 
 
 sudo systemctl restart ocserv
+
+# Новое имя хоста
+
+
+# Изменение имени хоста в файле /etc/hostname
+sudo echo "$hostingname" > /etc/hostname
+
+# Изменение имени хоста в файле /etc/hosts
+sudo sed -i "s/127.0.1.1.*/127.0.1.1\t$hostingname/g" /etc/hosts
+
+# Перезагрузка системы
+sudo reboot
