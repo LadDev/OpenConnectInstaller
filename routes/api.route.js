@@ -205,6 +205,8 @@ router.get("/show/sessions/all", async (req, res) => {
                 return;
             }
 
+            console.log(stdout)
+
             try {
                 const data = JSON.parse(stdout);
                 console.log('Результат команды:');
