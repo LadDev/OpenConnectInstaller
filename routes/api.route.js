@@ -6,6 +6,7 @@ router.get("/show/status", async (req, res) => {
     try {
         exec('occtl --json show status', (error, stdout, stderr) => {
             try{
+                console.log(stdout)
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
