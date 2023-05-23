@@ -10,7 +10,7 @@ router.get("/status", async (req, res) => {
         command.stdout.on('data', (data) => {
             const tmpDataArray = data.toString().replace("\t", "").split("\n");
 
-            console.log(tmpDataArray)
+           // console.log(tmpDataArray)
 
             let dataObj = {
                 general_info: {
@@ -44,10 +44,12 @@ router.get("/status", async (req, res) => {
             for (const d of tmpDataArray) {
                 const arrD = d.split(":")
                 if (arrD.length === 2) {
-                    const title = arrD[0].replace("\t", "")
+                    const title = arrD[0].replace("\t", "").trim()
                     const value = arrD[1].replace("\t", "").trim()
 
-                    switch (title) {
+                    console.log([title,value])
+
+                    switch (title.trim()) {
                         case "Status":
                             dataObj.general_info.status = value
                             break;
