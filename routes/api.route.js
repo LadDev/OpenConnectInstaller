@@ -1,6 +1,6 @@
 const {Router} = require("express")
 const router = Router()
-const {spawn, exec} = require('child_process');
+const {exec} = require('child_process');
 
 
 const modifyData = async (data) => {
@@ -32,7 +32,7 @@ const parseData = async (data) => {
 
 router.get("/show/status", async (req, res) => {
     try {
-        exec('occtl --json show status', async (error, stdout, stderr) => {
+        exec('occtl --json show status', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
                 res.status(200).json({code: 0, sessions: data});
@@ -49,7 +49,7 @@ router.get("/show/status", async (req, res) => {
 
 router.get("/show/users", async (req, res) => {
     try {
-        exec('occtl --json show users', async (error, stdout, stderr) => {
+        exec('occtl --json show users', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
                 res.status(200).json({code: 0, sessions: data});
@@ -67,7 +67,7 @@ router.get("/show/users", async (req, res) => {
 router.get("/show/sessions/all", async (req, res) => {
 
     try {
-        exec('occtl --json show sessions all', async (error, stdout, stderr) => {
+        exec('occtl --json show sessions all', async (error, stdout) => {
             try{
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
@@ -87,7 +87,7 @@ router.get("/show/sessions/all", async (req, res) => {
 
 router.get("/show/sessions/valid", async (req, res) => {
     try {
-        exec('occtl --json show sessions valid', async (error, stdout, stderr) => {
+        exec('occtl --json show sessions valid', async (error, stdout) => {
             try{
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
@@ -101,6 +101,7 @@ router.get("/show/sessions/valid", async (req, res) => {
     } catch (error) {
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
+
 })
 
 
