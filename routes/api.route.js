@@ -195,12 +195,12 @@ router.get("/show/users", async (req, res) => {
 
 router.get("/show/sessions/all", async (req, res) => {
     try {
-        exec('occtl --json show sessions all', (error, stdout, stderr) => {
-            const data = JSON.parse(stdout);
-            console.log('Результат команды:');
-            console.log(data);
-            res.status(200).json({code: 0, sessions: data})
-        });
+        // exec('occtl --json show sessions all', (error, stdout, stderr) => {
+        //     const data = JSON.parse(stdout);
+        //     console.log('Результат команды:');
+        //     console.log(data);
+        //     res.status(200).json({code: 0, sessions: data})
+        // });
         // const command = spawn('occtl', ['show', 'sessions', 'all', '--json']);
         // command.stdout.on('data', (data) => {
         //
