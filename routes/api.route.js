@@ -55,6 +55,9 @@ router.get("/status", async (req, res) => {
                         case "Sec-mod PID":
                             dataObj.general_info.sec_mod_pid = Number(value)
                             break;
+                        case "Up since":
+                            dataObj.general_info.up_since = Number(value)
+                            break;
                         case "Active sessions":
                             dataObj.general_info.active_sessions = Number(value)
                             break;
@@ -68,8 +71,11 @@ router.get("/status", async (req, res) => {
                             dataObj.general_info.ips_in_ban_list = Number(value)
                             break;
 
+                        case "Last stats reset":
+                            dataObj.current_stats_info.last_stats_reset = value
+                            break;
                         case "Sessions handled":
-                            dataObj.current_stats_info.sessions_handled = Number(value)
+                            dataObj.current_stats_info.sessions_handled = value
                             break;
                         case "Timed out sessions":
                             dataObj.current_stats_info.timed_out_sessions = value
@@ -88,6 +94,12 @@ router.get("/status", async (req, res) => {
                             break;
                         case "Max auth time":
                             dataObj.current_stats_info.max_auth_time = value
+                            break;
+                        case "Average session time":
+                            dataObj.current_stats_info.average_session_time = value
+                            break;
+                        case "Max session time":
+                            dataObj.current_stats_info.max_session_time = value
                             break;
                         case "Min MTU":
                             dataObj.current_stats_info.min_mtu = value
