@@ -195,25 +195,11 @@ router.get("/show/users", async (req, res) => {
 
 router.get("/show/sessions/all", async (req, res) => {
     try {
-        exec('occtl show sessions all --json', (error, stdout, stderr) => {
-            if (error) {
-                console.error(`Ошибка выполнения команды: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.error(`Ошибка вывода команды: ${stderr}`);
-                return;
-            }
-
-            console.log(stdout)
-
-            try {
-                const data = JSON.parse(stdout);
-                console.log('Результат команды:');
-                console.log(data);
-            } catch (err) {
-                console.error('Ошибка при парсинге JSON:', err.message);
-            }
+        exec('occtl --json show sessions all', (error, stdout, stderr) => {
+            const data = JSON.parse(stdout);
+            console.log('Результат команды:');
+            console.log(data);
+            res.status(200).json({code: 0, sessions: data})
         });
         // const command = spawn('occtl', ['show', 'sessions', 'all', '--json']);
         // command.stdout.on('data', (data) => {
