@@ -165,6 +165,7 @@ router.post("/add/user", async (req, res) => {
     try {
 
         const {username,password,group} = req.body
+        console.log(req.body)
         const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
         const userEntry = `${username}:${group}:${hashedPassword}\n`;
