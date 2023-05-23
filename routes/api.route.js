@@ -205,7 +205,7 @@ router.get("/show/sessions/all", async (req, res) => {
 
 
             for(const usrLine of tmpDataArray.slice(1)){
-                const values = usrLine.match(/\s+/);
+                const values = usrLine.split("  ");
                 console.log(values)
                 const user = {};
                 headers.forEach((header, index) => {
