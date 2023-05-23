@@ -104,5 +104,62 @@ router.get("/show/sessions/valid", async (req, res) => {
 
 })
 
+router.get("/show/ip/bans", async (req, res) => {
+    try {
+        exec('occtl --json show ip bans', async (error, stdout) => {
+            try{
+                const lastIndex = stdout.lastIndexOf(',');
+                let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+
+                const data = await parseData(JSON.parse(jsonString));
+                res.status(200).json({code: 0, sessions: data});
+            }catch (e) {
+                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
+router.get("/show/ip/bans/points", async (req, res) => {
+    try {
+        exec('occtl --json show ip bans points', async (error, stdout) => {
+            try{
+                const lastIndex = stdout.lastIndexOf(',');
+                let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+
+                const data = await parseData(JSON.parse(jsonString));
+                res.status(200).json({code: 0, sessions: data});
+            }catch (e) {
+                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
+router.get("/show/iroutes", async (req, res) => {
+    try {
+        exec('occtl --json show iroutes', async (error, stdout) => {
+            try{
+                const lastIndex = stdout.lastIndexOf(',');
+                let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+
+                const data = await parseData(JSON.parse(jsonString));
+                res.status(200).json({code: 0, sessions: data});
+            }catch (e) {
+                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
 
 module.exports = router
