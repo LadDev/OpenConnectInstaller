@@ -7,7 +7,7 @@ logs/*
 npm-debug.log*
 yarn-error.log*
 yarn-debug.log*
-package-lock.json
+api/package-lock.json
 yarn.lock
 /.pnp
 .pnp.js
