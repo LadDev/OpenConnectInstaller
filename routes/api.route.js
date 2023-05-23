@@ -157,8 +157,6 @@ router.get("/show/users", async (req, res) => {
             const usersArr = []
 
             const headers = tmpDataArray[0].split(/\s+/);
-
-
             const values = tmpDataArray[1].split(/\s+/);
 
 
@@ -166,7 +164,7 @@ router.get("/show/users", async (req, res) => {
             for(const usrLine of tmpDataArray.slice(1)){
                 const user = {};
                 headers.forEach((header, index) => {
-                    if(header.trim() !== "" && values[index].trim() !== "") {
+                    if(header.trim() !== "") {
                         user[header.trim()] = values[index].trim();
                     }
                 });
