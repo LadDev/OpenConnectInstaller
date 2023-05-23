@@ -12,6 +12,7 @@ router.get("/show/status", async (req, res) => {
                 const data = JSON.parse(jsonString);
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
+                console.error(e)
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
             }
         });
