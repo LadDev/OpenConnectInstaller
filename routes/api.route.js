@@ -11,7 +11,12 @@ router.get("/status", async (req, res) => {
             const tmpDataArray = data.toString().replace("\t","").split("\n");
 
             for(const d of tmpDataArray){
-                console.info(d.split(":"))
+                const arrD = d.split(":")
+                if(arrD.length === 2){
+                    let title = arrD[0].replace("\t","")
+                    let value = arrD[1].replace("\t","").trim()
+                    console.info([title,value])
+                }
             }
 
             let dataObj = {
