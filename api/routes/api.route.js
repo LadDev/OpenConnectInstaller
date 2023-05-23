@@ -165,6 +165,7 @@ router.post("/add/user", async (req, res) => {
     try {
 
         const {username,password,group} = req.body
+        const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
 

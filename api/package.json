@@ -22,6 +22,7 @@
     "nodemon": "^2.0.21"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "big-integer": "^1.6.51",
     "body-parser": "^1.20.2",
