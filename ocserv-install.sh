@@ -48,6 +48,22 @@ dns2=${dns2:-1.1.1.1}
 # Установка необходимых пакетов
 sudo apt install -y ocserv certbot
 
+#Установка NGINX
+#sudo apt install nginx
+
+
+#sudo tee /etc/nginx/conf.d/$domain.conf > /dev/null << EOF
+#server {
+#      listen 80;
+#      server_name $domain;
+#
+#      root $webdir/;
+#
+#      location ~ /.well-known/acme-challenge {
+#         allow all;
+#      }
+#}
+#EOF
 
 sudo mkdir -p $webdir
 
