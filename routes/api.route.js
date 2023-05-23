@@ -52,6 +52,7 @@ router.get("/show/users", async (req, res) => {
     try {
         exec('occtl --json show users', async (error, stdout, stderr) => {
             try{
+                console.log(stdout)
                 const data = await parseData(JSON.parse(stdout));
                 console.log(data)
                 res.status(200).json({code: 0, sessions: data});
