@@ -180,6 +180,7 @@ router.post("/add/user", async (req, res) => {
             }
         });
     } catch (error) {
+        console.error(error)
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 
