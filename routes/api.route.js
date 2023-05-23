@@ -8,10 +8,10 @@ router.get("/status", async (req, res) => {
 
         // Обработка вывода команды
         command.stdout.on('data', (data) => {
-            const tmpDataArray = data.toString().split("\n");
+            const tmpDataArray = data.toString().replace("\t","").split("\n");
 
             for(const d of tmpDataArray){
-                console.info(d)
+                console.info(d.split(":"))
             }
 
             let dataObj = {
