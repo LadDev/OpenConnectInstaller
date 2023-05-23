@@ -4,9 +4,6 @@ const {spawn, exec} = require('child_process');
 
 
 const modifyData = async (data) => {
-
-    console.log(data)
-
     let obj = {...data};
 
     let modifiedObj = {};
@@ -51,13 +48,10 @@ router.get("/show/status", async (req, res) => {
 })
 
 router.get("/show/users", async (req, res) => {
-
     try {
         exec('occtl --json show users', async (error, stdout, stderr) => {
             try{
-                console.log(stdout)
                 const data = await parseData(JSON.parse(stdout));
-                console.log(data)
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
                 console.error(e)
@@ -68,79 +62,38 @@ router.get("/show/users", async (req, res) => {
         console.error(error)
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
-
-    // try {
-    //     const command = spawn('occtl', ['show', 'users']);
-    //     command.stdout.on('data', (data) => {
-    //         const tmpDataArray = data.toString().replace("\t", "").split("\n");
-    //
-    //         const usersArr = []
-    //
-    //         const headers = tmpDataArray[0].split(/\s+/);
-    //
-    //
-    //         for(const usrLine of tmpDataArray.slice(1)){
-    //             const values = usrLine.split(/\s+/);
-    //             const user = {};
-    //             headers.forEach((header, index) => {
-    //                 if(header.trim() !== "") {
-    //                     user[header.trim().replace("-","_")] = values[index].trim();
-    //                 }
-    //             });
-    //
-    //             usersArr.push(user)
-    //         }
-    //
-    //         res.status(200).json({code: 0, users: usersArr})
-    //     });
-    //
-    //     // Обработка ошибок
-    //     command.on('error', (error) => {
-    //         console.error(`Ошибка выполнения команды: ${error.message}`);
-    //         res.status(500).json({code: -1, error: error.toString()})
-    //     });
-    //
-    //     command.stderr.on('data', (data) => {
-    //         console.error(`Ошибка вывода команды: ${data}`);
-    //         res.status(500).json({code: -1, data: data.toString()})
-    //     });
-    //
-    //     // Завершение команды
-    //     command.on('close', (code) => {
-    //         console.log(`Команда завершена с кодом ${code}`);
-    //         //res.status(500).json({code:code.toString()})
-    //     });
-    // } catch (error) {
-    //     res.status(500).json({code: -1, message: "Something went wrong, please try again"})
-    // }
 })
 
 router.get("/show/sessions/all", async (req, res) => {
+
     try {
-        exec('occtl --json show sessions all', (error, stdout, stderr) => {
+        exec('occtl --json show sessions all', async (error, stdout, stderr) => {
             try{
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-                const data = JSON.parse(jsonString);
+
+                const data = await parseData(JSON.parse(jsonString));
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
+                console.error(e)
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
             }
         });
     } catch (error) {
+        console.error(error)
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 })
 
 router.get("/show/sessions/valid", async (req, res) => {
     try {
-        exec('occtl --json show sessions valid', (error, stdout, stderr) => {
+        exec('occtl --json show sessions valid', async (error, stdout, stderr) => {
             try{
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-                const data = JSON.parse(jsonString);
+                const data = await parseData(JSON.parse(jsonString));
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
