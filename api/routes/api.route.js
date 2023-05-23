@@ -3,7 +3,7 @@ const router = Router()
 const {exec} = require('child_process');
 const fs = require('fs');
 const crypto = require('crypto');
-
+const bcrypt = require('bcrypt');
 
 const modifyData = async (data) => {
     let obj = {...data};
@@ -165,8 +165,8 @@ router.post("/add/user", async (req, res) => {
     try {
 
         const {username,password,group} = req.body
-        console.log(req.body)
-        const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hashedPassword = bcrypt.hashSync(password, salt);
 
         const userEntry = `${username}:${group}:${hashedPassword}\n`;
 
