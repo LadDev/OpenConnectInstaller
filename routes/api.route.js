@@ -211,7 +211,7 @@ router.get("/show/sessions/all", async (req, res) => {
                     "    \"Location\":  \"unknown\",\n" +
                     "    \"session_is_open\":  1,\n" +
                     "    \"tls_auth_ok\":  0,\n" +
-                    "    \"in_use\":  1,\n" +
+                    "    \"in_use\":  1\n" +
                     "  }\n" +
                     "]")
                 //const data = JSON.parse(stdout.replace("\n",""));
