@@ -155,9 +155,10 @@ router.get("/show/users", async (req, res) => {
             const usersArr = []
 
             const headers = tmpDataArray[0].split(/\s+/);
-            const values = tmpDataArray[1].split(/\s+/);
+
 
             for(const usrLine of tmpDataArray.slice(1)){
+                const values = usrLine.split(/\s+/);
                 const user = {};
                 headers.forEach((header, index) => {
                     if(header.trim() !== "") {
@@ -201,9 +202,10 @@ router.get("/show/sessions/all", async (req, res) => {
             const usersArr = []
 
             const headers = tmpDataArray[0].split(/\s+/);
-            const values = tmpDataArray[1].split(/\S+/g);
+
 
             for(const usrLine of tmpDataArray.slice(1)){
+                const values = usrLine.match(/\S+/g);
                 const user = {};
                 headers.forEach((header, index) => {
                     if(header.trim() !== "") {
