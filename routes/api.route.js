@@ -7,10 +7,10 @@ router.get("/show/status", async (req, res) => {
         exec('occtl --json show status', (error, stdout, stderr) => {
             try{
                 console.log(stdout)
-                const lastIndex = stdout.lastIndexOf(',');
-                let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+                // const lastIndex = stdout.lastIndexOf(',');
+                // let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-                const data = JSON.parse(jsonString);
+                const data = JSON.parse(stdout);
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
                 console.error(e)
