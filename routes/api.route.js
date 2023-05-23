@@ -197,6 +197,23 @@ router.get("/show/sessions/all", async (req, res) => {
     try {
         exec('occtl --json show sessions all', (error, stdout, stderr) => {
             try{
+                JSON.parse("[\n" +
+                    "  {\n" +
+                    "    \"Session\":  \"Otj47m\",\n" +
+                    "    \"Full session\":  \"Otj47mjd3p/3SNUM1tHkockFaRg=\",\n" +
+                    "    \"Created\":  \"2023-05-23 18:11\",\n" +
+                    "    \"State\":  \"authenticated\",\n" +
+                    "    \"Username\":  \"alexander\",\n" +
+                    "    \"Groupname\":  \"(none)\",\n" +
+                    "    \"vhost\":  \"default\",\n" +
+                    "    \"User-Agent\":  \"AnyConnect Android 5.0.02078\",\n" +
+                    "    \"Remote IP\":  \"89.28.205.221\",\n" +
+                    "    \"Location\":  \"unknown\",\n" +
+                    "    \"session_is_open\":  1,\n" +
+                    "    \"tls_auth_ok\":  0,\n" +
+                    "    \"in_use\":  1,\n" +
+                    "  }\n" +
+                    "]")
                 //const data = JSON.parse(stdout.replace("\n",""));
                 //console.log('Результат команды:');
                 //console.log(data);
