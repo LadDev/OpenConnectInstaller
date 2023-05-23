@@ -197,8 +197,9 @@ router.get("/show/sessions/all", async (req, res) => {
     try {
         exec('occtl --json show sessions all', (error, stdout, stderr) => {
             try{
-                const formattedJsonString = JSON.stringify(JSON.parse(stdout), null, 2);
-                console.log(formattedJsonString);
+                const lastIndex = stdout.lastIndexOf(',');
+                let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+                console.log(jsonString)
                 //const data = JSON.parse(stdout.replace("\n",""));
                 //console.log('Результат команды:');
                 //console.log(data);
