@@ -4,6 +4,9 @@ const {spawn, exec} = require('child_process');
 
 
 const modifyData = async (data) => {
+
+    console.log(data)
+
     let obj = {...data};
 
     let modifiedObj = {};
