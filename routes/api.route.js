@@ -72,7 +72,6 @@ router.get("/show/sessions/all", async (req, res) => {
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-
                 const data = await parseData(JSON.parse(jsonString));
                 res.status(200).json({code: 0, sessions: data});
             }catch (e) {
