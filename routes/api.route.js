@@ -150,7 +150,7 @@ router.get("/show/users", async (req, res) => {
     try {
         const command = spawn('occtl', ['show', 'users']);
         command.stdout.on('data', (data) => {
-            const tmpDataArray = data.toString().replace("\t", "").split("\n");
+            const tmpDataArray = data.toString().replace("\t", "").split("\n").splice(1);
 
             console.log(data)
             console.log(tmpDataArray)
