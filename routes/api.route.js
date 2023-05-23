@@ -35,15 +35,15 @@ router.get("/show/status", async (req, res) => {
         exec('occtl --json show status', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                res.status(200).json({code: 0, sessions: data});
+                return res.status(200).json({code: 0, status: data});
             }catch (e) {
                 console.error(e)
-                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+                return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
             }
         });
     } catch (error) {
         console.error(error)
-        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 })
 
@@ -52,15 +52,14 @@ router.get("/show/users", async (req, res) => {
         exec('occtl --json show users', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                res.status(200).json({code: 0, sessions: data});
+                return res.status(200).json({code: 0, users: data});
             }catch (e) {
-                console.error(e)
-                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+                return res.status(200).json({code: 0, users: []});
             }
         });
     } catch (error) {
         console.error(error)
-        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 })
 
@@ -73,15 +72,14 @@ router.get("/show/sessions/all", async (req, res) => {
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
                 const data = await parseData(JSON.parse(jsonString));
-                res.status(200).json({code: 0, sessions: data});
+                return res.status(200).json({code: 0, sessions: data});
             }catch (e) {
-                console.error(e)
-                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+                return res.status(200).json({code: 0, sessions: []});
             }
         });
     } catch (error) {
         console.error(error)
-        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 })
 
@@ -93,9 +91,9 @@ router.get("/show/sessions/valid", async (req, res) => {
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
                 const data = await parseData(JSON.parse(jsonString));
-                res.status(200).json({code: 0, sessions: data});
+                return res.status(200).json({code: 0, sessions: data});
             }catch (e) {
-                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+                return res.status(200).json({code: 0, sessions: []});
             }
         });
     } catch (error) {
@@ -113,15 +111,14 @@ router.get("/show/ip/bans", async (req, res) => {
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
                 const data = await parseData(JSON.parse(jsonString));
-                res.status(200).json({code: 0, sessions: data});
+                return res.status(200).json({code: 0, data: data});
             }catch (e) {
-                console.error(e)
-                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+                return res.status(200).json({code: 0, data: []});
             }
         });
     } catch (error) {
         console.error(error)
-        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 
 })
@@ -134,13 +131,13 @@ router.get("/show/ip/bans/points", async (req, res) => {
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
                 const data = await parseData(JSON.parse(jsonString));
-                res.status(200).json({code: 0, sessions: data});
+                return res.status(200).json({code: 0, data: data});
             }catch (e) {
-                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+                return res.status(200).json({code: 0, data: []});
             }
         });
     } catch (error) {
-        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
 
 })
@@ -149,11 +146,9 @@ router.get("/show/iroutes", async (req, res) => {
     try {
         exec('occtl --json show iroutes', async (error, stdout) => {
             try{
-                const lastIndex = stdout.lastIndexOf(',');
-                let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-                const data = await parseData(JSON.parse(jsonString));
-                res.status(200).json({code: 0, sessions: data});
+                const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0, data: data});
             }catch (e) {
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
             }
