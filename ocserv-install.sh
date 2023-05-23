@@ -55,7 +55,7 @@ dns2=${dns2:-1.1.1.1}
 sudo apt install -y ocserv certbot
 
 #Установка NGINX
-#sudo apt install nginx
+#sudo apt install nginx -y
 
 
 #sudo tee /etc/nginx/conf.d/$domain.conf > /dev/null << EOF
