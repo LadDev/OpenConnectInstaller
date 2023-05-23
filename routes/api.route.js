@@ -192,5 +192,51 @@ router.get("/show/users", async (req, res) => {
     }
 })
 
+router.get("/show/sessions/all", async (req, res) => {
+    try {
+        const command = spawn('occtl', ['show', 'sessions', 'all']);
+        command.stdout.on('data', (data) => {
+            const tmpDataArray = data.toString().replace("\t", "").split("\n");
+
+            const usersArr = []
+
+            const headers = tmpDataArray[0].split(/\s+/);
+            const values = tmpDataArray[1].split(/\s+/);
+
+            for(const usrLine of tmpDataArray.slice(1)){
+                const user = {};
+                headers.forEach((header, index) => {
+                    if(header.trim() !== "") {
+                        user[header.trim().replace("-","_")] = values[index].trim();
+                    }
+                });
+
+                usersArr.push(user)
+            }
+
+            res.status(200).json({code: 0, users: usersArr})
+        });
+
+        // Обработка ошибок
+        command.on('error', (error) => {
+            console.error(`Ошибка выполнения команды: ${error.message}`);
+            res.status(500).json({code: -1, error: error.toString()})
+        });
+
+        command.stderr.on('data', (data) => {
+            console.error(`Ошибка вывода команды: ${data}`);
+            res.status(500).json({code: -1, data: data.toString()})
+        });
+
+        // Завершение команды
+        command.on('close', (code) => {
+            console.log(`Команда завершена с кодом ${code}`);
+            //res.status(500).json({code:code.toString()})
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+})
+
 
 module.exports = router
