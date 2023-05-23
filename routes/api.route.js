@@ -21,7 +21,7 @@ const parseData = async (data) => {
     if(data instanceof Array){
         modifiedData = []
         for(const obj of data){
-            modifiedData.push(modifyData(data))
+            modifiedData.push(await modifyData(data))
         }
     }else if(data instanceof Object){
         modifiedData =  await modifyData(data)
