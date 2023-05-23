@@ -150,38 +150,16 @@ router.get("/show/users", async (req, res) => {
     try {
         const command = spawn('occtl', ['show', 'users']);
         command.stdout.on('data', (data) => {
-            const tmpDataArray = data.toString().replace("\t", "").split("\n");
+            const tmpDataArray = data.toString().replace("\t", "").split("\n").slice(1);
 
             console.log(tmpDataArray)
 
-            let dataObj = {
-                general_info: {
-                    status: "offline",
-                    server_pid: null,
-                    sec_mod_pid: null,
-                    up_since: null,
-                    active_sessions: 0,
-                    total_sessions: 0,
-                    total_authentication_failures: 0,
-                    ips_in_ban_list: 0
-                },
-                current_stats_info: {
-                    last_stats_reset: null,
-                    sessions_handled: 0,
-                    timed_out_sessions: 0,
-                    timed_out_idle_sessions: 0,
-                    closed_due_to_error_sessions: 0,
-                    authentication_failures: 0,
-                    average_auth_time: "",
-                    max_auth_time: "",
-                    average_session_time: "",
-                    max_session_time: "",
-                    min_mtu: 0,
-                    max_mtu: 0,
-                    rx: "",
-                    tx: ""
-                }
+            const usersArr = []
+
+            for(const usrLine of tmpDataArray){
+                console.info(usrLine.split(" "))
             }
+
 
             // for (const d of tmpDataArray) {
             //     const arrD = d.split(":")
@@ -269,7 +247,7 @@ router.get("/show/users", async (req, res) => {
             //     }
             // }
 
-            res.status(200).json({code: 0, data: dataObj})
+            res.status(200).json({code: 0, users: usersArr})
         });
 
         // Обработка ошибок
