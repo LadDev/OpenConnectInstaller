@@ -199,11 +199,11 @@ router.get("/show/sessions/all", async (req, res) => {
             try{
                 const lastIndex = stdout.lastIndexOf(',');
                 let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
-                console.log(jsonString)
-                //const data = JSON.parse(stdout.replace("\n",""));
+
+                const data = JSON.parse(jsonString);
                 //console.log('Результат команды:');
                 //console.log(data);
-                res.status(200).json({code: 0, sessions: stdout.replace("\n","")});
+                res.status(200).json({code: 0, sessions: data});
             }catch (e) {
                 console.log(e)
             }
