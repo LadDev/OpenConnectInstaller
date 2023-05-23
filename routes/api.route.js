@@ -9,24 +9,24 @@ router.get("/status", async (req, res) => {
         // Обработка вывода команды
         command.stdout.on('data', (data) => {
             console.log(`Результат команды: ${data}`);
-            res.status(200).json({code: 0, data})
+            res.status(200).json({code: 0,data: data.toString()})
         });
 
         // Обработка ошибок
         command.on('error', (error) => {
             console.error(`Ошибка выполнения команды: ${error.message}`);
-            res.status(500).json({code: -1, error})
+            res.status(500).json({code: -1, error:error.toString()})
         });
 
         command.stderr.on('data', (data) => {
             console.error(`Ошибка вывода команды: ${data}`);
-            res.status(500).json({code: -1, data})
+            res.status(500).json({code: -1, data:data.toString()})
         });
 
         // Завершение команды
         command.on('close', (code) => {
             console.log(`Команда завершена с кодом ${code}`);
-            res.status(500).json({code: code})
+            res.status(500).json({code:code.toString()})
         });
     } catch (error) {
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})

@@ -84,9 +84,9 @@ sudo certbot certonly --webroot --agree-tos --email $email -d $domain -w /var/ww
 # Настройка файла конфигурации Ocserv
 sudo cp /etc/ocserv/ocserv.conf /etc/ocserv/ocserv.conf.bak
 sudo tee /etc/ocserv/ocserv.conf > /dev/null << EOF
-# User authentication method. Could be set multiple times and in 
+# User authentication method. Could be set multiple times and in
 # that case all should succeed. To enable multiple methods use
-# multiple auth directives. Available options: certificate, 
+# multiple auth directives. Available options: certificate,
 # plain, pam, radius, gssapi.
 #
 # Note that authentication methods cannot be changed with reload.
@@ -95,7 +95,7 @@ sudo tee /etc/ocserv/ocserv.conf > /dev/null << EOF
 #  This indicates that all connecting users must present a certificate.
 #
 # pam[gid-min=1000]:
-#  This enabled PAM authentication of the user. The gid-min option is used 
+#  This enabled PAM authentication of the user. The gid-min option is used
 # by auto-select-group option, in order to select the minimum valid group ID.
 #
 # plain[passwd=/etc/ocserv/ocpasswd,otp=/etc/ocserv/users.otp]
@@ -151,7 +151,7 @@ auth = "plain[passwd=/etc/ocserv/ocpasswd]"
 # Only one accounting method can be specified.
 #acct = "radius[config=/etc/radiusclient/radiusclient.conf]"
 
-# Use listen-host to limit to specific IPs or to the IPs of a provided 
+# Use listen-host to limit to specific IPs or to the IPs of a provided
 # hostname.
 #listen-host = [IP|HOSTNAME]
 
@@ -194,7 +194,7 @@ socket-file = /run/ocserv.socket
 #chroot-dir = /var/lib/ocserv
 
 # The key and the certificates of the server
-# The key may be a file, or any URL supported by GnuTLS (e.g., 
+# The key may be a file, or any URL supported by GnuTLS (e.g.,
 # tpmkey:uuid=xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx;storage=user
 # or pkcs11:object=my-vpn-key;object-type=private)
 #
@@ -217,7 +217,7 @@ server-key = /etc/letsencrypt/live/$domain/privkey.pem
 #dh-params = /etc/ocserv/dh.pem
 
 # In case PKCS #11, TPM or encrypted keys are used the PINs should be available
-# in files. The srk-pin-file is applicable to TPM keys only, and is the 
+# in files. The srk-pin-file is applicable to TPM keys only, and is the
 # storage root key.
 #pin-file = /etc/ocserv/pin.txt
 #srk-pin-file = /etc/ocserv/srkpin.txt
@@ -238,7 +238,7 @@ ca-cert = /etc/ssl/certs/ssl-cert-snakeoil.pem
 
 
 ### All configuration options below this line are reloaded on a SIGHUP.
-### The options above, will remain unchanged. Note however, that the 
+### The options above, will remain unchanged. Note however, that the
 ### server-cert, server-key, dh-params and ca-cert options will be reloaded
 ### if the provided file changes, on server reload. That allows certificate
 ### rotation, but requires the server key to remain the same for seamless
@@ -246,7 +246,7 @@ ca-cert = /etc/ssl/certs/ssl-cert-snakeoil.pem
 ### failures during the reloading time.
 
 
-# Whether to enable seccomp/Linux namespaces worker isolation. That restricts the number of 
+# Whether to enable seccomp/Linux namespaces worker isolation. That restricts the number of
 # system calls allowed to a worker process, in order to reduce damage from a
 # bug in the worker process. It is available on Linux systems at a performance cost.
 # The performance cost is roughly 2% overhead at transfer time (tested on a Linux 3.17.8).
@@ -263,7 +263,7 @@ isolate-workers = true
 #max-clients = 1024
 max-clients = $maxclients
 
-# Limit the number of identical clients (i.e., users connecting 
+# Limit the number of identical clients (i.e., users connecting
 # multiple times). Unset or set to zero for unlimited.
 max-same-clients = $maxsameclients
 
@@ -273,7 +273,7 @@ max-same-clients = $maxsameclients
 # the TCP or UNIX socket (not the UDP one).
 #listen-proxy-proto = true
 
-# Limit the number of client connections to one every X milliseconds 
+# Limit the number of client connections to one every X milliseconds
 # (X is the provided value). Set to zero for no limit.
 #rate-limit-ms = 100
 
@@ -300,7 +300,7 @@ keepalive = $keepalive
 dpd = 60
 
 # Dead peer detection for mobile clients. That needs to
-# be higher to prevent such clients being awaken too 
+# be higher to prevent such clients being awaken too
 # often by the DPD messages, and save battery.
 # The mobile clients are distinguished from the header
 # 'X-AnyConnect-Identifier-Platform'.
@@ -326,17 +326,17 @@ try-mtu-discovery = true
 # Make sure that you replace the following file in an atomic way.
 #ocsp-response = /etc/ocserv/ocsp.der
 
-# The object identifier that will be used to read the user ID in the client 
+# The object identifier that will be used to read the user ID in the client
 # certificate. The object identifier should be part of the certificate's DN
-# Useful OIDs are: 
+# Useful OIDs are:
 #  CN = 2.5.4.3, UID = 0.9.2342.19200300.100.1.1
 cert-user-oid = 0.9.2342.19200300.100.1.1
 
-# The object identifier that will be used to read the user group in the 
+# The object identifier that will be used to read the user group in the
 # client certificate. The object identifier should be part of the certificate's
 # DN. If the user may belong to multiple groups, then use multiple such fields
-# in the certificate's DN. Useful OIDs are: 
-#  OU (organizational unit) = 2.5.4.11 
+# in the certificate's DN. Useful OIDs are:
+#  OU (organizational unit) = 2.5.4.11
 #cert-group-oid = 2.5.4.11
 
 # The revocation list of the certificates issued by the 'ca-cert' above.
@@ -370,7 +370,7 @@ no-compress-limit = 256
 
 # More combinations in priority strings are available, check
 # http://gnutls.org/manual/html_node/Priority-Strings.html
-# E.g., the string below enforces perfect forward secrecy (PFS) 
+# E.g., the string below enforces perfect forward secrecy (PFS)
 # on the main channel.
 tls-priorities = "NORMAL:%SERVER_PRECEDENCE:%COMPAT:-RSA:-VERS-SSL3.0:-ARCFOUR-128"
 
@@ -394,7 +394,7 @@ auth-timeout = 240
 # traffic) before being disconnected. Unset to disable.
 #mobile-idle-timeout = 1800
 
-# The time (in seconds) that a client is not allowed to reconnect after 
+# The time (in seconds) that a client is not allowed to reconnect after
 # a failed authentication attempt.
 min-reauth-time = 300
 
@@ -469,7 +469,7 @@ rekey-method = ssl
 # client connection will be refused.
 
 # The disconnect script will receive the additional values: STATS_BYTES_IN,
-# STATS_BYTES_OUT, STATS_DURATION that contain a 64-bit counter of the bytes 
+# STATS_BYTES_OUT, STATS_DURATION that contain a 64-bit counter of the bytes
 # output from the tun device, and the duration of the session in seconds.
 
 #connect-script = /usr/bin/myscript
@@ -513,7 +513,7 @@ predictable-ips = true
 default-domain = $domain
 
 # The pool of addresses that leases will be given from. If the leases
-# are given via Radius, or via the explicit-ip? per-user config option then 
+# are given via Radius, or via the explicit-ip? per-user config option then
 # these network values should contain a network with at least a single
 # address that will remain under the full control of ocserv (that is
 # to be able to assign the local part of the tun device address).
@@ -576,7 +576,7 @@ ping-leases = false
 #output-buffer = 10
 
 # Routes to be forwarded to the client. If you need the
-# client to forward routes to the server, you may use the 
+# client to forward routes to the server, you may use the
 # config-per-user/group or even connect and disconnect scripts.
 #
 # To set the server as the default gateway for the client just
@@ -595,7 +595,7 @@ ping-leases = false
 #no-route = 192.168.5.0/255.255.255.0
 
 # Note the that following two firewalling options currently are available
-# in Linux systems with iptables software. 
+# in Linux systems with iptables software.
 
 # If set, the script /usr/bin/ocserv-fw will be called to restrict
 # the user to its allowed routes and prevent him from accessing
@@ -639,7 +639,7 @@ ping-leases = false
 # or the groupname.
 # The options allowed in the configuration files are dns, nbns,
 #  ipv?-network, ipv4-netmask, rx/tx-per-sec, iroute, route, no-route,
-#  explicit-ipv4, explicit-ipv6, net-priority, deny-roaming, no-udp, 
+#  explicit-ipv4, explicit-ipv6, net-priority, deny-roaming, no-udp,
 #  keepalive, dpd, mobile-dpd, max-same-clients, tunnel-all-dns,
 #  restrict-user-to-routes, user-profile, cgroup, stats-report-time,
 #  mtu, idle-timeout, mobile-idle-timeout, restrict-user-to-ports,
@@ -650,7 +650,7 @@ ping-leases = false
 # by the commands route-add-cmd and route-del-cmd (see below). The no-udp
 # is a boolean option (e.g., no-udp = true), and will prevent a UDP session
 # for that specific user or group. The hostname option will set a
-# hostname to override any proposed by the user. Note also, that, any 
+# hostname to override any proposed by the user. Note also, that, any
 # routes, no-routes, DNS or NBNS servers present will overwrite the global ones.
 
 #config-per-user = /etc/ocserv/config-per-user/
@@ -685,7 +685,7 @@ ping-leases = false
 #   }
 # In some distributions the krb5-k5tls plugin of kinit is required.
 #
-# The following option is available in ocserv, when compiled with GSSAPI support. 
+# The following option is available in ocserv, when compiled with GSSAPI support.
 
 #kkdcp = "SERVER-PATH KERBEROS-REALM PROTOCOL@SERVER:PORT"
 #kkdcp = "/KdcProxy KERBEROS.REALM udp@127.0.0.1:88"
@@ -693,8 +693,8 @@ ping-leases = false
 #kkdcp = "/KdcProxy KERBEROS.REALM tcp@[::1]:88"
 
 #
-# The following options are for (experimental) AnyConnect client 
-# compatibility. 
+# The following options are for (experimental) AnyConnect client
+# compatibility.
 
 # This option will enable the pre-draft-DTLS version of DTLS, and
 # will not require clients to present their certificate on every TLS
@@ -717,7 +717,7 @@ dtls-legacy = true
 
 # Client profile xml. A sample file exists in doc/profile.xml.
 # It is required by some of the CISCO clients.
-# This file must be accessible from inside the worker's chroot. 
+# This file must be accessible from inside the worker's chroot.
 # Note that enabling this option is not recommended as it will allow
 # the worker processes to open arbitrary files (when isolate-workers is
 # set to true).
@@ -852,6 +852,9 @@ sudo echo "$hostingname" > /etc/hostname
 
 # Изменение имени хоста в файле /etc/hosts
 sudo sed -i "s/127.0.1.1.*/127.0.1.1\t$hostingname/g" /etc/hosts
+
+sudo ufw allow 10033/tcp
+sudo ufw allow 10033/udp
 
 # Перезагрузка системы
 sudo reboot
