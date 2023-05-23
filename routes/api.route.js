@@ -150,15 +150,23 @@ router.get("/show/users", async (req, res) => {
     try {
         const command = spawn('occtl', ['show', 'users']);
         command.stdout.on('data', (data) => {
-            const tmpDataArray = data.toString().replace("\t", "").split("\n").slice(1);
+            const tmpDataArray = data.toString().replace("\t", "").split("\n");
 
             console.log(tmpDataArray)
 
             const usersArr = []
 
-            for(const usrLine of tmpDataArray){
-                console.info(usrLine.split(" "))
-            }
+            const headers = tmpDataArray[0].split(/\s+/);
+
+
+            const values = tmpDataArray[1].split(/\s+/);
+
+            const result = {};
+            headers.forEach((header, index) => {
+                result[header.trim()] = values[index].trim();
+            });
+
+            console.log(result);
 
 
             // for (const d of tmpDataArray) {
