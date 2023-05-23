@@ -1,0 +1,49 @@
+{
+  "name": "openconnect-manager",
+  "version": "1.0.0",
+  "description": "OpenConnect VPN – это реализация с открытым исходным кодом протокола Cisco  AnyConnnect VPN, который широко используется на предприятиях и в  университетах.",
+  "main": "app.js",
+  "scripts": {
+    "ocserv": "nodemon --ignore logs app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LadDev/OpenConnectInstaller.git"
+  },
+  "author": "LadDev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LadDev/OpenConnectInstaller/issues"
+  },
+  "homepage": "https://github.com/LadDev/OpenConnectInstaller#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "big-integer": "^1.6.51",
+    "body-parser": "^1.20.2",
+    "bson": "^5.2.0",
+    "bunyan": "^1.8.15",
+    "cheerio": "^1.0.0-rc.12",
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-validator": "^6.15.0",
+    "fs-extra": "^11.1.0",
+    "input": "^1.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "libphonenumber-js": "^1.10.24",
+    "lodash": "^4.17.21",
+    "mtproto": "^0.0.1",
+    "multer": "^1.4.5-lts.1",
+    "node-device-detector": "^2.0.12",
+    "password-generator": "^2.3.2"
+  }
+}
