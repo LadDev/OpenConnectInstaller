@@ -65,7 +65,7 @@ router.get("/show/users", async (req, res) => {
     }
 })
 
-router.get("/show/users/:user", async (req, res) => {
+router.get("/show/user/:user", async (req, res) => {
     try {
 
         const {user} = req.params
@@ -74,6 +74,25 @@ router.get("/show/users/:user", async (req, res) => {
             try{
                 const data = await parseData(JSON.parse(stdout)) || [];
                 return res.status(200).json({code: 0, user: data.length > 0?data[0]:{}});
+            }catch (e) {
+                return res.status(200).json({code: 0, user: {}});
+            }
+        });
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+})
+
+router.get("/show/user/:id/disconnect", async (req, res) => {
+    try {
+
+        const {id} = req.params
+
+        exec('occtl --json disconnect id '+id, async (error, stdout) => {
+            try{
+                //const data = await parseData(JSON.parse(stdout)) || [];
+                return res.status(200).json({code: 0});
             }catch (e) {
                 return res.status(200).json({code: 0, user: {}});
             }

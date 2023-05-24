@@ -41,8 +41,6 @@ const UserCardModal = (props) => {
 
     return (
         <React.Fragment>
-            <Button color="primary" onClick={toggleModal}>Standard Modal</Button>
-
             <Modal id="myModal"
                    isOpen={modalState}
                    toggle={toggleModal}
@@ -50,7 +48,7 @@ const UserCardModal = (props) => {
                 <ModalHeader toggle={() => {
                     toggleModal();
                 }}>
-                    Modal Heading
+                    {props.t("User Card")}
                 </ModalHeader>
                 <ModalBody>
                     {modalState && user?(
@@ -267,18 +265,9 @@ const UserCardModal = (props) => {
 
                 </ModalBody>
                 <ModalFooter>
-                    <Button
-                        color="light"
-                        onClick={() => {
-                            toggleModal();
-                        }}
-                    >
-                        Close
-                    </Button>
-                    <Button
-                        color="primary"
-                    >
-                        Save changes
+                    <Button color="light" onClick={() => {toggleModal();}}>{props.t("Close")}</Button>
+                    <Button color="primary">
+                        {props.t("Disconnect User")}
                     </Button>
                 </ModalFooter>
             </Modal>
