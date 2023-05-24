@@ -16,6 +16,15 @@ sudo tee api/config.json > /dev/null <<EOF
 }
 EOF
 
+sudo tee app/src/config.js > /dev/null <<EOF
+module.exports = {
+  api: {
+    API_URL: "http://79.132.136.221:10033",
+  }
+};
+
+EOF
+
 #cd app && yarn build
 #cd ..
 #cp -r app/build/* test/
