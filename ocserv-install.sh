@@ -860,11 +860,11 @@ sudo ufw allow 10034/tcp
 sudo ufw allow 10033/udp
 sudo ufw allow 10034/udp
 
-sudo apt install nodejs
-sudo apt install npm
+sudo apt install nodejs -y
+sudo apt install npm -y
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt install yarn
+sudo apt install yarn -y
 
 npm install -g pm2
 
