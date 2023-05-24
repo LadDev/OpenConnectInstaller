@@ -16,7 +16,12 @@ import {
   OCCTL_GET_STATUS_SUCCESS,
   OCCTL_GET_STATUS_ERROR,
   OCCTL_GET_USERS,
-  OCCTL_GET_USERS_SUCCESS, OCCTL_GET_USERS_ERROR, OCCTL_GET_USER_SUCCESS, OCCTL_GET_USER_ERROR, OCCTL_GET_USER,
+  OCCTL_GET_USERS_SUCCESS,
+  OCCTL_GET_USERS_ERROR,
+  OCCTL_GET_USER_SUCCESS,
+  OCCTL_GET_USER_ERROR,
+  OCCTL_GET_USER,
+  OCCTL_DISCONNECT_USER,
 } from "./actionTypes";
 
 const INIT_STATE = {
@@ -82,6 +87,17 @@ const Occtl = (state = INIT_STATE, action) => {
       return {
         ...state,
         error: action.payload.message,
+        usersLoading: false
+      }
+
+    case OCCTL_DISCONNECT_USER:
+
+
+
+      return {
+        ...state,
+        users: [...state.users.filter(usr => state.user.id !== usr.id)],
+        user: null,
         usersLoading: false
       }
     default:

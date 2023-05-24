@@ -1,4 +1,5 @@
 import {
+    OCCTL_DISCONNECT_USER, OCCTL_DISCONNECT_USER_ERROR, OCCTL_DISCONNECT_USER_SUCCESS,
     OCCTL_GET_STATUS,
     OCCTL_GET_STATUS_ERROR,
     OCCTL_GET_STATUS_SUCCESS, OCCTL_GET_USER, OCCTL_GET_USER_ERROR, OCCTL_GET_USER_SUCCESS,
@@ -65,6 +66,27 @@ export const fetchOcctlUserSuccess = (data) => {
 export const fetchOcctlUserError = (error) => {
     return {
         type: OCCTL_GET_USER_ERROR,
+        payload: error
+    }
+}
+
+export const disconnectUser = (id) => {
+    return {
+        type: OCCTL_DISCONNECT_USER,
+        payload: id
+    }
+}
+
+export const disconnectUserSuccess = (data) => {
+    return {
+        type: OCCTL_DISCONNECT_USER_SUCCESS,
+        payload: data
+    }
+}
+
+export const disconnectUserError = (error) => {
+    return {
+        type: OCCTL_DISCONNECT_USER_ERROR,
         payload: error
     }
 }

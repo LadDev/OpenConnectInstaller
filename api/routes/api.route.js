@@ -88,9 +88,10 @@ router.get("/show/user/:id/disconnect", async (req, res) => {
     try {
 
         const {id} = req.params
-
+        console.log('occtl --json disconnect id '+id)
         exec('occtl --json disconnect id '+id, async (error, stdout) => {
             try{
+                console.log(stdout)
                 //const data = await parseData(JSON.parse(stdout)) || [];
                 return res.status(200).json({code: 0});
             }catch (e) {

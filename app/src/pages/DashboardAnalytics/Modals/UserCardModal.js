@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withTranslation} from "react-i18next";
 import { Button, Modal,ModalHeader, ModalFooter, ModalBody, Row, Col } from 'reactstrap';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchOcctlUser} from "../../../store/occtl/actions";
+import {disconnectUser, fetchOcctlUser} from "../../../store/occtl/actions";
 
 const UserCardModal = (props) => {
     const dispatch = useDispatch()
@@ -36,6 +36,11 @@ const UserCardModal = (props) => {
     },[serverUser])
 
     const toggleModal = () => {
+        props.toggle()
+    }
+
+    const disconnect = () => {
+        dispatch(disconnectUser(user.id))
         props.toggle()
     }
 
@@ -266,7 +271,7 @@ const UserCardModal = (props) => {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="light" onClick={() => {toggleModal();}}>{props.t("Close")}</Button>
-                    <Button color="primary">
+                    <Button color="danger" onClick={disconnect}>
                         {props.t("Disconnect User")}
                     </Button>
                 </ModalFooter>
