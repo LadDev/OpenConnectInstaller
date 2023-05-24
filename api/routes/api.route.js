@@ -42,7 +42,7 @@ router.post("/auth", async (req, res) => {
         if(password === authData.password && email === authData.email){
             //const clientIP = req.headers['x-forwarded-for']?.split(',').shift() || req.socket?.remoteAddress;
             console.log(authData.salt)
-            let token = jwt.sign({email: authData.email}, authData.salt, {expiresIn: "1d"})
+            let token = jwt.sign({email: authData.email}, "9QCNcHH5HtG6+TlRjb7pH7B6fY19qtttk8xgouexEe53HkVLIpqEANl5L", {expiresIn: "1d"})
 
             return res.status(201).json({code: 0, message: "", token: token})
         }
