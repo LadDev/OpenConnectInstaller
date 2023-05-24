@@ -88,10 +88,8 @@ router.get("/show/user/:id/disconnect", async (req, res) => {
     try {
 
         const {id} = req.params
-        console.log('occtl --json disconnect id '+id)
         exec('occtl --json disconnect id '+id, async (error, stdout) => {
             try{
-                console.log(stdout)
                 //const data = await parseData(JSON.parse(stdout)) || [];
                 return res.status(200).json({code: 0});
             }catch (e) {
@@ -190,6 +188,40 @@ router.get("/show/iroutes", async (req, res) => {
 
                 const data = await parseData(JSON.parse(stdout));
                 return res.status(200).json({code: 0, data: data});
+            }catch (e) {
+                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
+router.get("/reset", async (req, res) => {
+    try {
+        exec('occtl --json reset', async (error, stdout) => {
+            try{
+                console.log(stdout)
+                // const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0});
+            }catch (e) {
+                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
+router.get("/stop-now", async (req, res) => {
+    try {
+        exec('occtl --json stop now', async (error, stdout) => {
+            try{
+                console.log(stdout)
+                // const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0});
             }catch (e) {
                 res.status(500).json({code: -1, message: "Something went wrong, please try again"})
             }

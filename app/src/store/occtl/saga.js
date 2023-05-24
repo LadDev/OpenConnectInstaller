@@ -16,7 +16,7 @@ import {
 } from "./actions"
 
 //Include Both Helper File with needed methods
-import {getOcctl, getOcctlUser, getOcctlUsers} from "../../helpers/backend_helper";
+import {getDisconnectOcctlUser, getOcctl, getOcctlUser, getOcctlUsers} from "../../helpers/backend_helper";
 
 function* fetchOcctlStatus() {
   try {
@@ -47,7 +47,7 @@ function* fetchOcctlUser({payload: user}) {
 
 function* disconnectOcctlUser({payload: id}) {
   try {
-    const response = yield call(getOcctlUser, id)
+    const response = yield call(getDisconnectOcctlUser, id)
     yield put(disconnectUserSuccess(response))
   } catch (error) {
     yield put(disconnectUserError(error))
