@@ -12,10 +12,12 @@ function* loginUser({ payload: { user, history } }) {
       email: user.email,
       password: user.password,
     });
+    console.log(response)
     sessionStorage.setItem("authUser", JSON.stringify(response));
-    if (response.status === "success") {
+    if (response.code === 0) {
       yield put(loginSuccess(response));
-      history.push("/dashboard");
+      //history.push("/dashboard");
+      document.location.href="/dashboard"
     } else {
       yield put(apiError(response));
     }
