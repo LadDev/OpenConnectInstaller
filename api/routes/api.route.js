@@ -72,10 +72,10 @@ router.get("/show/users/:user", async (req, res) => {
 
         exec('occtl --json show user '+user, async (error, stdout) => {
             try{
-                const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, users: data});
+                const data = await parseData(JSON.parse(stdout)) || [];
+                return res.status(200).json({code: 0, user: data.length > 0?data[0]:{}});
             }catch (e) {
-                return res.status(200).json({code: 0, users: []});
+                return res.status(200).json({code: 0, user: {}});
             }
         });
     } catch (error) {
