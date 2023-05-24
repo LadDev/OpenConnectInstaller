@@ -49,7 +49,7 @@ router.post("/auth", async (req, res) => {
              const token = jwt.sign(payload, secretKey);
              console.log('Созданный JWT:', token);
 
-            //return res.status(201).json({code: 0, message: "", token: token})
+            return res.status(201).json({code: 0, message: "", token: token})
         }
 
     } catch (error) {
