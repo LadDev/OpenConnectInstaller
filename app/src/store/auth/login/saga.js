@@ -4,14 +4,11 @@ import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { LOGIN_USER, LOGOUT_USER, SOCIAL_LOGIN } from "./actionTypes";
 import { apiError, loginSuccess, logoutUserSuccess } from "./actions";
 
-import {
-  postFakeLogin,
-
-} from "../../../helpers/fakebackend_helper";
+import {postAuth} from "../../../helpers/backend_helper";
 
 function* loginUser({ payload: { user, history } }) {
   try {
-    const response = yield call(postFakeLogin, {
+    const response = yield call(postAuth, {
       email: user.email,
       password: user.password,
     });
