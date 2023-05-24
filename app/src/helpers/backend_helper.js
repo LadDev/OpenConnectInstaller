@@ -1,7 +1,7 @@
 import { APIClient } from "./api_helper";
 
 import * as url from "./url_helper";
-import {GET_OCCTL_STATUS} from "./url_helper";
+import {GET_OCCTL_STATUS, GET_OCCTL_USERS} from "./url_helper";
 
 const api = new APIClient();
 
@@ -19,3 +19,5 @@ export const isUserAuthenticated = () => {
 
 
 export const getOcctl = () => api.get(url.GET_OCCTL_STATUS);
+export const getOcctlUsers = () => api.get(url.GET_OCCTL_USERS);
+export const getOcctlUser = (user) => api.get(url.GET_OCCTL_USERS+`/${user}`);

@@ -224,3 +224,4 @@ export const ADD_NEW_TODO_PROJECT = "/add/project";
 
 //OCCTL
 export const GET_OCCTL_STATUS = "/api/show/status";
+export const GET_OCCTL_USERS = "/api/show/users";

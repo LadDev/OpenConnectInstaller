@@ -65,6 +65,25 @@ router.get("/show/users", async (req, res) => {
     }
 })
 
+router.get("/show/users/:user", async (req, res) => {
+    try {
+
+        const {user} = req.params
+
+        exec('occtl --json show user '+user, async (error, stdout) => {
+            try{
+                const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0, users: data});
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
+            }
+        });
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+})
+
 router.get("/show/sessions/all", async (req, res) => {
 
     try {

@@ -11,12 +11,20 @@ import {
   DELETE_EVENT_FAIL,
   RESET_CALENDAR,
   GET_UPCOMMINGEVENT_SUCCESS,
-  GET_UPCOMMINGEVENT_FAIL, OCCTL_GET_STATUS, OCCTL_GET_STATUS_SUCCESS, OCCTL_GET_STATUS_ERROR,
+  GET_UPCOMMINGEVENT_FAIL,
+  OCCTL_GET_STATUS,
+  OCCTL_GET_STATUS_SUCCESS,
+  OCCTL_GET_STATUS_ERROR,
+  OCCTL_GET_USERS,
+  OCCTL_GET_USERS_SUCCESS, OCCTL_GET_USERS_ERROR, OCCTL_GET_USER_SUCCESS, OCCTL_GET_USER_ERROR, OCCTL_GET_USER,
 } from "./actionTypes";
 
 const INIT_STATE = {
   statusLoading: false,
+  usersLoading: false,
   status: {},
+  users: [],
+  user: null,
   error: {},
 };
 
@@ -38,6 +46,43 @@ const Occtl = (state = INIT_STATE, action) => {
         ...state,
         error: action.payload.message,
         statusLoading: false
+      }
+
+    case OCCTL_GET_USERS:
+      return {
+        ...state,
+        usersLoading: true
+      }
+    case OCCTL_GET_USERS_SUCCESS:
+      return {
+        ...state,
+        users: action.payload.users,
+        usersLoading: false
+      }
+    case OCCTL_GET_USERS_ERROR:
+      return {
+        ...state,
+        error: action.payload.message,
+        usersLoading: false
+      }
+
+    case OCCTL_GET_USER:
+      return {
+        ...state,
+        user: null,
+        usersLoading: true
+      }
+    case OCCTL_GET_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        usersLoading: false
+      }
+    case OCCTL_GET_USER_ERROR:
+      return {
+        ...state,
+        error: action.payload.message,
+        usersLoading: false
       }
     default:
       return state;

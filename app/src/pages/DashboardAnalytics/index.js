@@ -13,8 +13,9 @@ import TopReferrals from './TopReferrals';
 import TopPages from './TopPages';
 import {useDispatch, useSelector} from "react-redux";
 import Occtl from "../../store/occtl/reducer";
-import {fetchOcctlStatus} from "../../store/occtl/actions";
+import {fetchOcctlStatus, fetchOcctlUsers} from "../../store/occtl/actions";
 import ServerStatus from "./Status";
+import UsersConnected from "./UsersConnected";
 
 const DashboardAnalytics = () => {
     const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const DashboardAnalytics = () => {
 
     useEffect(()=>{
         dispatch(fetchOcctlStatus())
+        dispatch(fetchOcctlUsers())
     },[])
 
 
@@ -33,6 +35,11 @@ const DashboardAnalytics = () => {
 
                     <Row>
                         <ServerStatus />
+
+                    </Row>
+
+                    <Row>
+                        <UsersConnected />
                     </Row>
 
                     <Row>

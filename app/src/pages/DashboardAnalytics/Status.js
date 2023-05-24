@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, UncontrolledTooltip } from 'reactstrap';
 import {withTranslation} from "react-i18next";
-//import Images
-import illustrator from "../../assets/images/illustrator-1.png";
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 const ServerStatus = (props) => {
 
-    const {statusLoading, serverStatus ,error} = useSelector(state => ({
+    const {serverStatus} = useSelector(state => ({
         statusLoading: state.Occtl.statusLoading,
         serverStatus: state.Occtl.status,
         error: state.Occtl.error,
@@ -36,6 +33,33 @@ const ServerStatus = (props) => {
                             )}
                             {props.t("Server Status")}
                         </h4>
+                        {status.status&&status.status==="online"?(
+                           <React.Fragment>
+                               <div className="flex-shrink-0">
+                                   <button type="button" id={"reload_button"} className="btn btn-soft-primary btn-sm">
+                                       {props.t("Reload")}
+                                   </button>
+                               </div>
+                               {" "}
+                               <div className="flex-shrink-0">
+                                   <button type="button" id={"reset_button"} className="btn btn-soft-warning btn-sm">
+                                       {props.t("Reset")}
+                                   </button>
+                               </div>
+                               {" "}
+                               <div className="flex-shrink-0">
+                                   <button type="button" id={"stop_button"} className="btn btn-soft-danger btn-sm">
+                                       {props.t("Stop")}
+                                   </button>
+                               </div>
+                               <UncontrolledTooltip target={"reload_button"} placement={"bottom"}>{props.t("Reloads the server configuration")}</UncontrolledTooltip>
+                               <UncontrolledTooltip target={"reset_button"} placement={"bottom"}>{props.t("Resets the screen and terminal")}</UncontrolledTooltip>
+                               <UncontrolledTooltip target={"stop_button"} placement={"bottom"}>{props.t("Terminates the server")}</UncontrolledTooltip>
+                           </React.Fragment>
+                        ):("")}
+
+
+
                     </CardHeader>
 
                     <CardBody>
