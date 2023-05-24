@@ -1,0 +1,91 @@
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://themesbrand.com/
+Contact: support@themesbrand.com
+File: Custom Css File
+*/
+
+.css-b62m3t-container {
+    .css-1s2u09g-control {
+        background-color: var(--#{$prefix}gray-200);
+        border-color: var(--#{$prefix}border-color);
+
+        &:hover {
+            border-color: var(--#{$prefix}border-color);
+        }
+    }
+
+    .css-1pahdxg-control {
+        background-color: var(--#{$prefix}gray-200);
+        border-color: var(--#{$prefix}border-color);
+        box-shadow: none;
+
+        &:hover {
+            border-color: var(--#{$prefix}border-color)  !important;
+        }
+    }
+
+    .css-26l3qy-menu {
+        background-color: $dropdown-bg;
+
+        .css-1n7v3ny-option {
+            cursor: pointer;
+            background-color: $dropdown-link-hover-bg;
+
+            &:active {
+                background-color: $dropdown-link-hover-bg;
+            }
+        }
+    }
+
+    .css-1rhbuit-multiValue {
+        background-color: var(--#{$variable-prefix}light);
+    }
+
+    .css-12jo7m5 {
+        color: $heading-color;
+    }
+
+    .css-6j8wv5-Input,
+    .css-qc6sy-singleValue {
+        color: $heading-color;
+    }
+}
+
+.marketplace-swiper .swiper-button-next,
+.marketplace-swiper .swiper-button-prev {
+    top: 24px;
+}
+
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 22px;
+    line-height: 2;
+}
+
+.marquee div {
+    display: block;
+    width: 200%;
+    height: 30px;
+    position: absolute;
+    overflow: hidden;
+    animation: marquee 35s linear infinite;
+}
+
+.marquee span {
+    float: left;
+    width: 50%;
+}
+
+@keyframes marquee {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: -100%;
+    }
+}

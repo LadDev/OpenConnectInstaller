@@ -1,0 +1,166 @@
+{
+  "name": "modern-velzon-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^32.0.0",
+    "@ckeditor/ckeditor5-react": "^4.0.0",
+    "@fullcalendar/bootstrap": "^5.11.0",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
+    "@fullcalendar/list": "^5.11.0",
+    "@fullcalendar/react": "^5.11.1",
+    "@simonwep/pickr": "^1.8.2",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.3",
+    "@testing-library/user-event": "^13.5.0",
+    "@vtaits/react-color-picker": "^0.1.2",
+    "aos": "^2.3.4",
+    "apexcharts": "^3.33.1",
+    "axios": "^0.26.0",
+    "axios-mock-adapter": "^1.20.0",
+    "bootstrap": "5.2.1",
+    "chart.js": "^2.9.4",
+    "cleave.js": "^1.6.0",
+    "echarts": "^5.3.0",
+    "echarts-for-react": "^3.0.2",
+    "emoji-picker-react": "^3.5.1",
+    "eslint": "^8.9.0",
+    "feather-icons-react": "^0.5.0",
+    "filepond": "^4.30.3",
+    "filepond-plugin-image-exif-orientation": "^1.0.11",
+    "filepond-plugin-image-preview": "^4.6.10",
+    "firebase": "^9.6.7",
+    "formik": "^2.2.9",
+    "google-maps-react": "^2.0.6",
+    "gridjs": "^5.0.2",
+    "gridjs-react": "^5.0.2",
+    "i18next": "^21.6.11",
+    "i18next-browser-languagedetector": "^6.1.3",
+    "leaflet": "^1.7.1",
+    "list.js": "^2.3.1",
+    "lord-icon-element": "^3.3.3",
+    "lottie-web": "^5.8.1",
+    "node-sass": "^7.0.1",
+    "nouislider-react": "^3.4.1",
+    "prismjs": "^1.26.0",
+    "quill": "^1.3.7",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.3.9",
+    "react-chartjs-2": "^2.11.1",
+    "react-color": "^2.19.3",
+    "react-countdown": "^2.3.2",
+    "react-countup": "^6.1.1",
+    "react-csv": "^2.2.2",
+    "react-data-table-component": "^7.5.2",
+    "react-dom": "^18.0.0",
+    "react-drag-listview": "^0.1.9",
+    "react-dragula": "^1.1.17",
+    "react-dropzone": "^12.0.1",
+    "react-dual-listbox": "^2.2.0",
+    "react-facebook-login": "^4.1.1",
+    "react-filepond": "^7.1.1",
+    "react-flatpickr": "^3.10.7",
+    "react-google-login": "^5.2.2",
+    "react-i18next": "^11.15.3",
+    "react-image-lightbox": "^5.1.4",
+    "react-jvectormap": "^0.0.16",
+    "react-leaflet": "^4.0.2",
+    "react-masonry-component": "^6.3.0",
+    "react-masonry-css": "^1.0.16",
+    "react-meta-tags": "^1.0.1",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-quilljs": "^1.2.17",
+    "react-rangeslider": "^2.2.0",
+    "react-rating": "^2.0.5",
+    "react-redux": "^7.2.6",
+    "react-responsive-carousel": "^3.2.22",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "5.0.0",
+    "react-scrollspy": "^3.4.3",
+    "react-select": "^5.2.2",
+    "react-shepherd": "^3.3.6",
+    "react-switch": "^6.0.0",
+    "react-table": "^7.7.0",
+    "react-toastify": "^8.1.1",
+    "reactstrap": "^9.0.1",
+    "redux": "^4.1.2",
+    "redux-saga": "^1.1.3",
+    "remixicon-react": "^1.0.0",
+    "save": "^2.4.0",
+    "simplebar-react": "^2.3.6",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.0.6",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11",
+    "dotenv": "^16.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build --max_old_space_size=8000 build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write \"**/*.{js,jsx,json,md,html,css,less,scss}\""
+  },
+  "babelOptions": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "react-app"
+    ],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": false,
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "globals": {
+      "$": true
+    },
+    "settings": {
+      "react": {
+        "version": "^17.0.1"
+      }
+    },
+    "rules": {
+      "semi": 0,
+      "react/no-unescaped-entities": 0,
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "no-unused-vars": "off",
+      "no-extra-boolean-cast": 0
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "moment": "2.29.1"
+  },
+  "devDependencies": {
+    "babel-plugin-prismjs": "^2.1.0"
+  }
+}

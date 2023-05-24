@@ -854,7 +854,25 @@ sudo echo "$hostingname" > /etc/hostname
 sudo sed -i "s/127.0.1.1.*/127.0.1.1\t$hostingname/g" /etc/hosts
 
 sudo ufw allow 10033/tcp
+sudo ufw allow 10034/tcp
 sudo ufw allow 10033/udp
+sudo ufw allow 10034/udp
+
+sudo apt install nodejs
+sudo apt install npm
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt install yarn
+
+#sudo apt-get install jq -y
+
+npm install -g pm2
+
+npm install --prefix api
+cd app && yarn install
+
+
+pm2 start api/app.js
 
 # Перезагрузка системы
 sudo reboot

@@ -1,0 +1,19 @@
+{
+    "Server Status": "Статус сервера",
+    "Status": "Статус",
+    "Active sessions": "Активных сессий",
+    "Total sessions": "Всего сессий",
+    "Authentication failures": "Ошибок авторизации",
+    "IPs in ban list": "IP в бане",
+    "Last stats reset": "Последний сброс",
+    "Sessions handled": "Проводимые сессии",
+    "Timed out sessions": "Прерванные сессии",
+    "Timed out (idle) sessions": "Завершение сеанса (простоя)",
+    "Closed due to error sessions": "Сессии закрытые из-за ошибок",
+    "Average auth time": "Среднее время авторизации",
+    "Max auth time": "Максимальное время авторизации",
+    "Average session time": "Среднее время сессии",
+    "Max session time": "Максимальное время сессии",
+    "Receive": "Получено",
+    "Transmit": "Отправлено"
+}
