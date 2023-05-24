@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { dealsStatus } from "../../common/data";
+import { Card, CardBody, CardHeader, Col } from 'reactstrap';
 import {withTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
@@ -59,26 +57,12 @@ const UsersConnected = (props) => {
                                         <th scope="col">{props.t("Device")}</th>
                                         <th scope="col">{props.t("MTU")}</th>
                                         <th scope="col">{props.t("Remote IP")}</th>
-                                        {/*<th scope="col">{props.t("Location")}</th>*/}
                                         <th scope="col">{props.t("Local Device IP")}</th>
                                         <th scope="col">{props.t("IPv4")}</th>
-                                        {/*<th scope="col">{props.t("P-t-P IPv4")}</th>*/}
-                                        {/*<th scope="col">{props.t("IPv6")}</th>*/}
-                                        {/*<th scope="col">{props.t("P-t-P IPv6")}</th>*/}
-                                        {/*<th scope="col">{props.t("RX")}</th>*/}
-                                        {/*<th scope="col">{props.t("TX")}</th>*/}
                                         <th scope="col">{props.t("Average RX")}</th>
                                         <th scope="col">{props.t("Average TX")}</th>
-                                        {/*<th scope="col">{props.t("DPD")}</th>*/}
-                                        {/*<th scope="col">{props.t("KeepAlive")}</th>*/}
                                         <th scope="col">{props.t("Connected at")}</th>
-                                        {/*<th scope="col">{props.t("Full session")}</th>*/}
                                         <th scope="col">{props.t("DNS")}</th>
-
-                                        {/*<th scope="col" style={{ width: "20%" }}>Last Contacted</th>*/}
-                                        {/*<th scope="col" >Sales Representative</th>*/}
-                                        {/*<th scope="col" style={{ width: "16%" }}>Status</th>*/}
-                                        {/*<th scope="col" style={{ width: "12%" }}>Deal Value</th>*/}
                                     </tr>
                                 </thead>
 
@@ -95,35 +79,16 @@ const UsersConnected = (props) => {
                                         <td>{user.device}</td>
                                         <td>{user.mtu}</td>
                                         <td>{user.remoteip}</td>
-                                        {/*<td>{user.location}</td>*/}
                                         <td>{user.localdeviceip}</td>
                                         <td>{user.ipv4}</td>
-                                        {/*<td>{user.ptpipv4}</td>*/}
-                                        {/*<td>{user.ipv6}</td>*/}
-                                        {/*<td>{user.ptpipv6}</td>*/}
-                                        {/*<td>{user._rx}</td>*/}
-                                        {/*<td>{user._tx}</td>*/}
                                         <td>{user.averagerx}</td>
                                         <td>{user.averagetx}</td>
-                                        {/*<td>{user.dpd}</td>*/}
-                                        {/*<td>{user.keepalive}</td>*/}
                                         <td>{user.connectedat}</td>
 
                                         <td>{user.dns.join(",")}</td>
 
                                     </tr>
                                 ))}
-
-                                    {/*{(dealsStatus || []).map((item, index) => (*/}
-                                    {/*    <tr key={index}>*/}
-                                    {/*        <td>{item.name}</td>*/}
-                                    {/*        <td>{item.date}</td>*/}
-                                    {/*        <td><img src={item.img} alt="" className="avatar-xs rounded-circle me-2" />*/}
-                                    {/*            <Link to="#" className="text-body fw-medium">{item.representativeName}</Link></td>*/}
-                                    {/*        <td><span className={"badge badge-soft-" + item.badgeClass + " p-2"}>{item.status}</span></td>*/}
-                                    {/*        <td><div className="text-nowrap">{item.statusValue}</div></td>*/}
-                                    {/*    </tr>*/}
-                                    {/*))}*/}
                                 </tbody>
                             </table>
                         </div>

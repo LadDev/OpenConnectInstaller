@@ -98,7 +98,7 @@ function* occtlSaga() {
   yield takeEvery(OCCTL_GET_USER, fetchOcctlUser)
   yield takeEvery(OCCTL_DISCONNECT_USER, disconnectOcctlUser)
   yield takeEvery(OCCTL_RELOAD, occtlReload)
-  yield takeEvery(OCCTL_RESET, occtlReload)
+  yield takeEvery(OCCTL_RESET, occtlReset)
   yield takeEvery(OCCTL_STOP_NOW, occtlStopNow)
   yield takeEvery(OCCTL_START, occtlStart)
 

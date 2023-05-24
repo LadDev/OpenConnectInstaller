@@ -4,6 +4,8 @@ const {exec} = require('child_process');
 const fs = require('fs');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken")
+const authData = require("../config.json")
 
 const modifyData = async (data) => {
     let obj = {...data};
@@ -31,6 +33,25 @@ const parseData = async (data) => {
 
     return modifiedData
 }
+
+router.post("/auth", async (req, res) => {
+    try {
+
+        const {email, password} = req.body
+
+        if(password === authData.password && email === authData.email){
+            const clientIP = req.headers['x-forwarded-for']?.split(',').shift() || req.socket?.remoteAddress;
+
+            let token = jwt.sign({email: email, ip:clientIP}, authData.salt, {expiresIn: "1d"})
+
+            return res.status(201).json({code: 0, message: "", token: token})
+        }
+
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+})
 
 router.get("/show/status", async (req, res) => {
     try {

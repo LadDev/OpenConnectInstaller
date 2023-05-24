@@ -54,22 +54,24 @@ dns2=${dns2:-1.1.1.1}
 # Установка необходимых пакетов
 sudo apt install -y ocserv certbot
 
+sudo apt install build-essential checkinstall zlib1g-dev -y
+
 #Установка NGINX
-#sudo apt install nginx -y
+sudo apt install nginx -y
 
 
-#sudo tee /etc/nginx/conf.d/$domain.conf > /dev/null << EOF
-#server {
-#      listen 80;
-#      server_name $domain;
-#
-#      root $webdir/;
-#
-#      location ~ /.well-known/acme-challenge {
-#         allow all;
-#      }
-#}
-#EOF
+sudo tee /etc/nginx/conf.d/$domain.conf > /dev/null << EOF
+server {
+      listen 10034;
+      server_name $domain;
+
+      root $webdir/;
+
+      location ~ /.well-known/acme-challenge {
+         allow all;
+      }
+}
+EOF
 
 sudo mkdir -p $webdir
 
@@ -864,15 +866,38 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt install yarn
 
-#sudo apt-get install jq -y
-
 npm install -g pm2
 
-npm install --prefix api
+cd api && npm install
+cd ..
 cd app && yarn install
+cd ..
+
+PASSGEN=$(openssl rand -base64 12)
+SALT=$(openssl rand -base64 48)
+
+#EMAIL="service.ru@mail.ru"
+
+#echo $SALT
+#echo $PASSGEN
+
+sudo tee api/config.json > /dev/null <<EOF
+{
+  "email":"$email",
+  "password":"$PASSGEN",
+  "salt":"$SALT"
+}
+EOF
+
+cd app && yarn build
+cd ..
+cp -r app/build/* $webdir/
 
 
-pm2 start api/app.js
+cd api
+pm2 start app.js
+cd ..
 
+echo "Open http://localhost:10034 using your email $email and password $PASSGEN"
 # Перезагрузка системы
-sudo reboot
+#sudo reboot

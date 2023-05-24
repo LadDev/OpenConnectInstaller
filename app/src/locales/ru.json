@@ -39,5 +39,7 @@
     "User Card": "Карточка пользователя",
     "Close": "Закрыть",
     "Disconnect User": "Отключить пользователя",
-    "Start Server": "Запустить сервер"
+    "Start Server": "Запустить сервер",
+    "Dashboards": "Управление",
+    "Analytics": "Аналитика"
 }
