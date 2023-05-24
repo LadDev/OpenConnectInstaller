@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const authData = require("../config.json")
-
+const auth = require("../middleware/admin.middleware")
 const modifyData = async (data) => {
     let obj = {...data};
 
@@ -50,7 +50,7 @@ router.post("/auth", async (req, res) => {
     }
 })
 
-router.get("/show/status", async (req, res) => {
+router.get("/show/status", auth, async (req, res) => {
     try {
         exec('occtl --json show status', async (error, stdout) => {
             try{
