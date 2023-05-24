@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Col, Row, UncontrolledTooltip } from 'react
 import {withTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {occtlReload, occtlReset, occtlStopNow} from "../../store/occtl/actions";
+import {occtlReload, occtlReset, occtlSart, occtlStopNow} from "../../store/occtl/actions";
 
 const ServerStatus = (props) => {
     const dispatch = useDispatch()
@@ -23,6 +23,9 @@ const ServerStatus = (props) => {
 
     const reload = () => {
         dispatch(occtlReload())
+    }
+    const start = () => {
+        dispatch(occtlSart())
     }
 
     const reset = () => {
@@ -69,7 +72,15 @@ const ServerStatus = (props) => {
                                <UncontrolledTooltip target={"reset_button"} placement={"bottom"}>{props.t("Resets the screen and terminal")}</UncontrolledTooltip>
                                <UncontrolledTooltip target={"stop_button"} placement={"bottom"}>{props.t("Terminates the server")}</UncontrolledTooltip>
                            </React.Fragment>
-                        ):("")}
+                        ):(
+                            <React.Fragment>
+                                <div className="flex-shrink-0">
+                                    <button type="button" onClick={start} id={"start_button"} className="btn btn-soft-success btn-sm">
+                                        {props.t("Start Server")}
+                                    </button>
+                                </div>
+                            </React.Fragment>
+                        )}
 
 
 

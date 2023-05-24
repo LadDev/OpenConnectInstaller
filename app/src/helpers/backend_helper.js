@@ -1,7 +1,14 @@
 import { APIClient } from "./api_helper";
 
 import * as url from "./url_helper";
-import {GET_OCCTL_RELOAD, GET_OCCTL_RESET, GET_OCCTL_STATUS, GET_OCCTL_USER, GET_OCCTL_USERS} from "./url_helper";
+import {
+  GET_OCCTL_RELOAD,
+  GET_OCCTL_RESET,
+  GET_OCCTL_START,
+  GET_OCCTL_STATUS,
+  GET_OCCTL_USER,
+  GET_OCCTL_USERS
+} from "./url_helper";
 
 const api = new APIClient();
 
@@ -25,3 +32,4 @@ export const getDisconnectOcctlUser = (user) => api.get(url.GET_OCCTL_USER+`/${u
 export const getOcctlReload = () => api.get(url.GET_OCCTL_RELOAD);
 export const getOcctlReset = () => api.get(url.GET_OCCTL_RESET);
 export const getOcctlStopNow = () => api.get(url.GET_OCCTL_STOP_NOW);
+export const getOcctlStart= () => api.get(url.GET_OCCTL_START);

@@ -229,3 +229,4 @@ export const GET_OCCTL_USER = "/api/show/user";
 export const GET_OCCTL_RELOAD = "/api/reload";
 export const GET_OCCTL_RESET = "/api/reset";
 export const GET_OCCTL_STOP_NOW = "/api/stop-now";
+export const GET_OCCTL_START = "/api/start";

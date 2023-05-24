@@ -38,5 +38,6 @@
     "Restricted to ports": "Ограничение на порты",
     "User Card": "Карточка пользователя",
     "Close": "Закрыть",
-    "Disconnect User": "Отключить пользователя"
+    "Disconnect User": "Отключить пользователя",
+    "Start Server": "Запустить сервер"
 }

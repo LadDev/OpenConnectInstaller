@@ -5,7 +5,7 @@ import {
     OCCTL_GET_STATUS_SUCCESS, OCCTL_GET_USER, OCCTL_GET_USER_ERROR, OCCTL_GET_USER_SUCCESS,
     OCCTL_GET_USERS,
     OCCTL_GET_USERS_ERROR,
-    OCCTL_GET_USERS_SUCCESS, OCCTL_RELOAD, OCCTL_RESET, OCCTL_STOP_NOW
+    OCCTL_GET_USERS_SUCCESS, OCCTL_RELOAD, OCCTL_RESET, OCCTL_START, OCCTL_STOP_NOW
 
 } from "./actionTypes";
 
@@ -88,6 +88,12 @@ export const disconnectUserError = (error) => {
     return {
         type: OCCTL_DISCONNECT_USER_ERROR,
         payload: error
+    }
+}
+
+export const occtlSart = () => {
+    return {
+        type: OCCTL_START
     }
 }
 

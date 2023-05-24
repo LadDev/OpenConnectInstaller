@@ -198,6 +198,23 @@ router.get("/show/iroutes", async (req, res) => {
 
 })
 
+router.get("/start", async (req, res) => {
+    try {
+        exec('sudo systemctl restart ocserv', async (error, stdout) => {
+            try{
+                console.log(stdout)
+                // const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0});
+            }catch (e) {
+                res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+            }
+        });
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
 router.get("/reload", async (req, res) => {
     try {
         exec('occtl reload', async (error, stdout) => {
