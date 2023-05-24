@@ -2,7 +2,6 @@ const {Router} = require("express")
 const router = Router()
 const {exec} = require('child_process');
 const fs = require('fs');
-const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const authData = require("../config.json")
@@ -67,7 +66,7 @@ router.get("/show/status", auth, async (req, res) => {
     }
 })
 
-router.get("/show/users", async (req, res) => {
+router.get("/show/users", auth, async (req, res) => {
     try {
         exec('occtl --json show users', async (error, stdout) => {
             try{
@@ -83,7 +82,7 @@ router.get("/show/users", async (req, res) => {
     }
 })
 
-router.get("/show/user/:user", async (req, res) => {
+router.get("/show/user/:user", auth, async (req, res) => {
     try {
 
         const {user} = req.params
@@ -102,7 +101,7 @@ router.get("/show/user/:user", async (req, res) => {
     }
 })
 
-router.get("/show/user/:id/disconnect", async (req, res) => {
+router.get("/show/user/:id/disconnect", auth, async (req, res) => {
     try {
 
         const {id} = req.params
@@ -120,7 +119,7 @@ router.get("/show/user/:id/disconnect", async (req, res) => {
     }
 })
 
-router.get("/show/sessions/all", async (req, res) => {
+router.get("/show/sessions/all", auth, async (req, res) => {
 
     try {
         exec('occtl --json show sessions all', async (error, stdout) => {
@@ -140,7 +139,7 @@ router.get("/show/sessions/all", async (req, res) => {
     }
 })
 
-router.get("/show/sessions/valid", async (req, res) => {
+router.get("/show/sessions/valid", auth, async (req, res) => {
     try {
         exec('occtl --json show sessions valid', async (error, stdout) => {
             try{
@@ -159,7 +158,7 @@ router.get("/show/sessions/valid", async (req, res) => {
 
 })
 
-router.get("/show/ip/bans", async (req, res) => {
+router.get("/show/ip/bans", auth, async (req, res) => {
     try {
         exec('occtl --json show ip bans', async (error, stdout) => {
             try{
@@ -180,7 +179,7 @@ router.get("/show/ip/bans", async (req, res) => {
 
 })
 
-router.get("/show/ip/bans/points", async (req, res) => {
+router.get("/show/ip/bans/points", auth, async (req, res) => {
     try {
         exec('occtl --json show ip bans points', async (error, stdout) => {
             try{
@@ -199,7 +198,7 @@ router.get("/show/ip/bans/points", async (req, res) => {
 
 })
 
-router.get("/show/iroutes", async (req, res) => {
+router.get("/show/iroutes", auth, async (req, res) => {
     try {
         exec('occtl --json show iroutes', async (error, stdout) => {
             try{
@@ -216,7 +215,7 @@ router.get("/show/iroutes", async (req, res) => {
 
 })
 
-router.get("/start", async (req, res) => {
+router.get("/start", auth, async (req, res) => {
     try {
         exec('sudo systemctl restart ocserv', async (error, stdout) => {
             try{
@@ -233,7 +232,7 @@ router.get("/start", async (req, res) => {
 
 })
 
-router.get("/reload", async (req, res) => {
+router.get("/reload", auth, async (req, res) => {
     try {
         exec('occtl reload', async (error, stdout) => {
             try{
@@ -250,7 +249,7 @@ router.get("/reload", async (req, res) => {
 
 })
 
-router.get("/reset", async (req, res) => {
+router.get("/reset", auth, async (req, res) => {
     try {
         exec('occtl reset', async (error, stdout) => {
             try{
@@ -267,7 +266,7 @@ router.get("/reset", async (req, res) => {
 
 })
 
-router.get("/stop-now", async (req, res) => {
+router.get("/stop-now", auth, async (req, res) => {
     try {
         exec('occtl stop now', async (error, stdout) => {
             try{
@@ -284,7 +283,7 @@ router.get("/stop-now", async (req, res) => {
 
 })
 
-router.post("/add/user", async (req, res) => {
+router.post("/add/user", auth, async (req, res) => {
     try {
 
         const {username,password,group} = req.body
