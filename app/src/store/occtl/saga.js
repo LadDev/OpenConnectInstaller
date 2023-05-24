@@ -3,7 +3,7 @@ import { takeEvery, put, call } from "redux-saga/effects"
 // Calender Redux States
 import {
   OCCTL_DISCONNECT_USER,
-  OCCTL_GET_STATUS, OCCTL_GET_USER, OCCTL_GET_USERS, OCCTL_RESET, OCCTL_STOP_NOW
+  OCCTL_GET_STATUS, OCCTL_GET_USER, OCCTL_GET_USERS, OCCTL_RELOAD, OCCTL_RESET, OCCTL_STOP_NOW
 } from "./actionTypes"
 
 import {
@@ -18,7 +18,7 @@ import {
 //Include Both Helper File with needed methods
 import {
   getDisconnectOcctlUser,
-  getOcctl,
+  getOcctl, getOcctlReload,
   getOcctlReset, getOcctlStopNow,
   getOcctlUser,
   getOcctlUsers
@@ -68,6 +68,14 @@ function* occtlReset() {
   }
 }
 
+function* occtlReload() {
+  try {
+    yield call(getOcctlReload)
+  } catch (error) {
+    // yield put(disconnectUserError(error))
+  }
+}
+
 function* occtlStopNow() {
   try {
     yield call(getOcctlStopNow)
@@ -81,7 +89,8 @@ function* occtlSaga() {
   yield takeEvery(OCCTL_GET_USERS, fetchOcctlUsers)
   yield takeEvery(OCCTL_GET_USER, fetchOcctlUser)
   yield takeEvery(OCCTL_DISCONNECT_USER, disconnectOcctlUser)
-  yield takeEvery(OCCTL_RESET, occtlReset)
+  yield takeEvery(OCCTL_RELOAD, occtlReload)
+  yield takeEvery(OCCTL_RESET, occtlReload)
   yield takeEvery(OCCTL_STOP_NOW, occtlStopNow)
 
 

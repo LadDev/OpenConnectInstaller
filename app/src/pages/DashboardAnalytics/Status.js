@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Col, Row, UncontrolledTooltip } from 'react
 import {withTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {occtlReset, occtlStopNow} from "../../store/occtl/actions";
+import {occtlReload, occtlReset, occtlStopNow} from "../../store/occtl/actions";
 
 const ServerStatus = (props) => {
     const dispatch = useDispatch()
@@ -20,6 +20,10 @@ const ServerStatus = (props) => {
             setStatus(serverStatus)
         }
     },[serverStatus, status])
+
+    const reload = () => {
+        dispatch(occtlReload())
+    }
 
     const reset = () => {
         dispatch(occtlReset())
@@ -44,11 +48,11 @@ const ServerStatus = (props) => {
                         </h4>
                         {status.status&&status.status==="online"?(
                            <React.Fragment>
-                               {/*<div className="flex-shrink-0">*/}
-                               {/*    <button type="button" id={"reload_button"} className="btn btn-soft-primary btn-sm">*/}
-                               {/*        {props.t("Reload")}*/}
-                               {/*    </button>*/}
-                               {/*</div>*/}
+                               <div className="flex-shrink-0">
+                                   <button type="button" onClick={reload} id={"reload_button"} className="btn btn-soft-primary btn-sm">
+                                       {props.t("Reload")}
+                                   </button>
+                               </div>
                                {" "}
                                <div className="flex-shrink-0">
                                    <button type="button" onClick={reset} id={"reset_button"} className="btn btn-soft-warning btn-sm">
@@ -61,7 +65,7 @@ const ServerStatus = (props) => {
                                        {props.t("Stop")}
                                    </button>
                                </div>
-                               {/*<UncontrolledTooltip target={"reload_button"} placement={"bottom"}>{props.t("Reloads the server configuration")}</UncontrolledTooltip>*/}
+                               <UncontrolledTooltip target={"reload_button"} placement={"bottom"}>{props.t("Reloads the server configuration")}</UncontrolledTooltip>
                                <UncontrolledTooltip target={"reset_button"} placement={"bottom"}>{props.t("Resets the screen and terminal")}</UncontrolledTooltip>
                                <UncontrolledTooltip target={"stop_button"} placement={"bottom"}>{props.t("Terminates the server")}</UncontrolledTooltip>
                            </React.Fragment>
