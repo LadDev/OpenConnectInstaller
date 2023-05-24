@@ -21,7 +21,7 @@ import {
   OCCTL_GET_USER_SUCCESS,
   OCCTL_GET_USER_ERROR,
   OCCTL_GET_USER,
-  OCCTL_DISCONNECT_USER,
+  OCCTL_DISCONNECT_USER, OCCTL_RESET, OCCTL_STOP_NOW,
 } from "./actionTypes";
 
 const INIT_STATE = {
@@ -91,12 +91,27 @@ const Occtl = (state = INIT_STATE, action) => {
       }
 
     case OCCTL_DISCONNECT_USER:
-
-
-
       return {
         ...state,
         users: [...state.users.filter(usr => state.user.id !== usr.id)],
+        user: null,
+        usersLoading: false
+      }
+
+    case OCCTL_RESET:
+      return {
+        ...state,
+        users: [],
+        status: {},
+        user: null,
+        usersLoading: false
+      }
+
+    case OCCTL_STOP_NOW:
+      return {
+        ...state,
+        users: [],
+        status: {},
         user: null,
         usersLoading: false
       }

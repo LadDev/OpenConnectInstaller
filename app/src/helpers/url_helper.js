@@ -226,3 +226,5 @@ export const ADD_NEW_TODO_PROJECT = "/add/project";
 export const GET_OCCTL_STATUS = "/api/show/status";
 export const GET_OCCTL_USERS = "/api/show/users";
 export const GET_OCCTL_USER = "/api/show/user";
+export const GET_OCCTL_RESET = "/api/reset";
+export const GET_OCCTL_STOP_NOW = "/api/stop-now";

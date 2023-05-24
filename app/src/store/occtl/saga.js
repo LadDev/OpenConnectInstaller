@@ -3,7 +3,7 @@ import { takeEvery, put, call } from "redux-saga/effects"
 // Calender Redux States
 import {
   OCCTL_DISCONNECT_USER,
-  OCCTL_GET_STATUS, OCCTL_GET_USER, OCCTL_GET_USERS
+  OCCTL_GET_STATUS, OCCTL_GET_USER, OCCTL_GET_USERS, OCCTL_RESET, OCCTL_STOP_NOW
 } from "./actionTypes"
 
 import {
@@ -16,7 +16,13 @@ import {
 } from "./actions"
 
 //Include Both Helper File with needed methods
-import {getDisconnectOcctlUser, getOcctl, getOcctlUser, getOcctlUsers} from "../../helpers/backend_helper";
+import {
+  getDisconnectOcctlUser,
+  getOcctl,
+  getOcctlReset, getOcctlStopNow,
+  getOcctlUser,
+  getOcctlUsers
+} from "../../helpers/backend_helper";
 
 function* fetchOcctlStatus() {
   try {
@@ -54,11 +60,29 @@ function* disconnectOcctlUser({payload: id}) {
   }
 }
 
+function* occtlReset() {
+  try {
+    yield call(getOcctlReset)
+  } catch (error) {
+    // yield put(disconnectUserError(error))
+  }
+}
+
+function* occtlStopNow() {
+  try {
+    yield call(getOcctlStopNow)
+  } catch (error) {
+    // yield put(disconnectUserError(error))
+  }
+}
+
 function* occtlSaga() {
   yield takeEvery(OCCTL_GET_STATUS, fetchOcctlStatus)
   yield takeEvery(OCCTL_GET_USERS, fetchOcctlUsers)
   yield takeEvery(OCCTL_GET_USER, fetchOcctlUser)
   yield takeEvery(OCCTL_DISCONNECT_USER, disconnectOcctlUser)
+  yield takeEvery(OCCTL_RESET, occtlReset)
+  yield takeEvery(OCCTL_STOP_NOW, occtlStopNow)
 
 
 }

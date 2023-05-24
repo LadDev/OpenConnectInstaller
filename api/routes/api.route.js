@@ -200,7 +200,7 @@ router.get("/show/iroutes", async (req, res) => {
 
 router.get("/reset", async (req, res) => {
     try {
-        exec('occtl --json reset', async (error, stdout) => {
+        exec('occtl reset', async (error, stdout) => {
             try{
                 console.log(stdout)
                 // const data = await parseData(JSON.parse(stdout));
@@ -217,7 +217,7 @@ router.get("/reset", async (req, res) => {
 
 router.get("/stop-now", async (req, res) => {
     try {
-        exec('occtl --json stop now', async (error, stdout) => {
+        exec('occtl stop now', async (error, stdout) => {
             try{
                 console.log(stdout)
                 // const data = await parseData(JSON.parse(stdout));
