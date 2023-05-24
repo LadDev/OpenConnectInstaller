@@ -20,7 +20,7 @@ const UserCardModal = (props) => {
         setModalState(props.modalState)
 
         if(props.modalState){
-            dispatch(fetchOcctlUser(props.user.username))
+            dispatch(fetchOcctlUser(props.user.id))
         }
 
     },[props.modalState])

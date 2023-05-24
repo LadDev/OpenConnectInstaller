@@ -101,19 +101,19 @@ const Occtl = (state = INIT_STATE, action) => {
     case OCCTL_RESET:
       return {
         ...state,
-        users: [],
-        status: {},
-        user: null,
-        usersLoading: false
+        // users: [],
+        // status: {},
+        // user: null,
+        // usersLoading: false
       }
 
     case OCCTL_RELOAD:
       return {
         ...state,
-        users: [],
-        status: {},
-        user: null,
-        usersLoading: false
+        // users: [],
+        // status: {},
+        // user: null,
+        // usersLoading: false
       }
 
     case OCCTL_STOP_NOW:

@@ -70,7 +70,7 @@ router.get("/show/user/:user", async (req, res) => {
 
         const {user} = req.params
 
-        exec('occtl --json show user '+user, async (error, stdout) => {
+        exec('occtl --json show id '+user, async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout)) || [];
                 return res.status(200).json({code: 0, user: data.length > 0?data[0]:{}});
