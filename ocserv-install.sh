@@ -70,6 +70,10 @@ server {
       location ~ /.well-known/acme-challenge {
          allow all;
       }
+
+      location / {
+        try_files \$uri /index.html;
+      }
 }
 EOF
 

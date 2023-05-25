@@ -16,6 +16,11 @@ const DashboardAnalytics = () => {
     useEffect(()=>{
         dispatch(fetchOcctlStatus())
         dispatch(fetchOcctlUsers())
+        let interval = setInterval(()=>{
+            dispatch(fetchOcctlStatus())
+            dispatch(fetchOcctlUsers())
+        }, 5000)
+        return () => clearInterval(interval);
     },[])
 
 

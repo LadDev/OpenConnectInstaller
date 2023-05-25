@@ -24,21 +24,25 @@ const UsersList = (props) => {
 
         const usersFileData = []
 
-        for(const usrStr of serverUsersFile){
-            if(usrStr!==""){
-                const usrArr = usrStr.split(":")
+        try{
+            for(const usrStr of serverUsersFile){
+                if(usrStr!==""){
+                    const usrArr = usrStr.split(":")
 
-                const isOnline = serverUsers.filter(usr=>usr.username === usrArr[0])
+                    const isOnline = serverUsers.filter(usr=>usr.username === usrArr[0])
 
-                usersFileData.push({
-                    id: isOnline.length>0?isOnline[0].id:null,
-                    status: isOnline.length>0?"online":"offline",
-                    username: usrArr[0],
-                    groupname: usrArr[1],
-                    hash: usrArr[3],
-                })
+                    usersFileData.push({
+                        id: isOnline.length>0?isOnline[0].id:null,
+                        status: isOnline.length>0?"online":"offline",
+                        username: usrArr[0],
+                        groupname: usrArr[1],
+                        hash: usrArr[3],
+                    })
+                }
+
             }
-
+        }catch (e) {
+            console.log("Error")
         }
 
         setUsersFile(usersFileData)
@@ -80,7 +84,7 @@ const UsersList = (props) => {
     }
 
     const deleteUSer = (username) => {
-        dispatch(occtlDeleteUser(username))
+        dispatch(occtlDeleteUser({username:username}))
     }
 
     return (
