@@ -1,17 +1,4 @@
 import {
-  GET_EVENTS_FAIL,
-  GET_EVENTS_SUCCESS,
-  GET_CATEGORIES_FAIL,
-  GET_CATEGORIES_SUCCESS,
-  ADD_EVENT_SUCCESS,
-  ADD_EVENT_FAIL,
-  UPDATE_EVENT_SUCCESS,
-  UPDATE_EVENT_FAIL,
-  DELETE_EVENT_SUCCESS,
-  DELETE_EVENT_FAIL,
-  RESET_CALENDAR,
-  GET_UPCOMMINGEVENT_SUCCESS,
-  GET_UPCOMMINGEVENT_FAIL,
   OCCTL_GET_STATUS,
   OCCTL_GET_STATUS_SUCCESS,
   OCCTL_GET_STATUS_ERROR,
@@ -29,6 +16,7 @@ const INIT_STATE = {
   usersLoading: false,
   status: {},
   users: [],
+  usersFile: [],
   user: null,
   error: {},
 };
@@ -62,6 +50,7 @@ const Occtl = (state = INIT_STATE, action) => {
       return {
         ...state,
         users: action.payload.users,
+        usersFile: action.payload.usersFile,
         usersLoading: false
       }
     case OCCTL_GET_USERS_ERROR:
@@ -93,7 +82,7 @@ const Occtl = (state = INIT_STATE, action) => {
     case OCCTL_DISCONNECT_USER:
       return {
         ...state,
-        users: [...state.users.filter(usr => state.user.id !== usr.id)],
+        users: [...state.users.filter(usr => action.payload !== usr.id)],
         user: null,
         usersLoading: false
       }

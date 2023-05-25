@@ -18,3 +18,5 @@ export const OCCTL_START = "OCCTL_START"
 export const OCCTL_RELOAD = "OCCTL_RELOAD"
 export const OCCTL_RESET = "OCCTL_RESET"
 export const OCCTL_STOP_NOW = "OCCTL_STOP_NOW"
+
+export const OCCTL_UPDATE_USER = "OCCTL_UPDATE_USER"

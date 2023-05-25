@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {fetchOcctlStatus, fetchOcctlUsers} from "../../store/occtl/actions";
 import ServerStatus from "./Status";
 import UsersConnected from "./UsersConnected";
+import UserList from "./UserList";
 
 const DashboardAnalytics = () => {
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const DashboardAnalytics = () => {
 
                     <Row>
                         <ServerStatus />
+                        <UserList />
                     </Row>
 
                     <Row>

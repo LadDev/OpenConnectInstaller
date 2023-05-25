@@ -316,5 +316,45 @@ router.post("/add/user", auth, async (req, res) => {
 
 })
 
+router.post("/edit/user", auth, async (req, res) => {
+    try {
+
+        const {username,password,group} = req.body
+
+        const saltRounds = 10;
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+
+        const userEntry = `${username}:${group}:${hashedPassword}\n`;
+
+        const filePath = '/etc/ocserv/ocpasswd';
+
+        const usersFile = fs.readFileSync(filePath, 'utf8').split("\n")
+
+        let newUsersFile = []
+
+        for(const usr of usersFile){
+            if(usr !== ""){
+                const oldUserData = usr.split(":")
+
+                if(oldUserData[0] === username){
+                    newUsersFile.push(userEntry)
+                }else{
+                    newUsersFile.push(usr)
+                }
+            }
+        }
+
+        fs.writeFileSync(filePath,newUsersFile.join("\n"))
+
+        return res.status(200).json({code: 0});
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
 
 module.exports = router

@@ -41,5 +41,11 @@
     "Disconnect User": "Отключить пользователя",
     "Start Server": "Запустить сервер",
     "Dashboards": "Управление",
-    "Analytics": "Аналитика"
+    "Analytics": "Аналитика",
+    "Action": "Действие",
+    "Edit User": "Редактирование пользователя",
+    "Password": "Пароль",
+    "Confirm Password": "Подтверждение пароля",
+    "Update": "Обновить",
+    "Users List": "Список пользователей"
 }

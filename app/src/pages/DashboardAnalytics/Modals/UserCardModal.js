@@ -212,21 +212,21 @@ const UserCardModal = (props) => {
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("DNS")}</p>
                                         </div>
-                                        <div className="flex-shrink-0"><p className="mb-0">{user.dns.join(",")}</p></div>
+                                        <div className="flex-shrink-0"><p className="mb-0">{(user.dns || []).join(", ")}</p></div>
                                     </div>
 
                                     <div className="d-flex">
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("NBNS")}</p>
                                         </div>
-                                        <div className="flex-shrink-0"><p className="mb-0">{user.nbns.join(",")}</p></div>
+                                        <div className="flex-shrink-0"><p className="mb-0">{(user.nbns || []).join(", ")}</p></div>
                                     </div>
 
                                     <div className="d-flex">
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("Split-DNS-Domains")}</p>
                                         </div>
-                                        <div className="flex-shrink-0"><p className="mb-0">{user.splitdnsdomains.join(",")}</p></div>
+                                        <div className="flex-shrink-0"><p className="mb-0">{(user.splitdnsdomains || []).join(", ")}</p></div>
                                     </div>
 
                                     <div className="d-flex">
@@ -240,14 +240,14 @@ const UserCardModal = (props) => {
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("No-routes")}</p>
                                         </div>
-                                        <div className="flex-shrink-0"><p className="mb-0">{user.noroutes.join(",")}</p></div>
+                                        <div className="flex-shrink-0"><p className="mb-0">{(user.noroutes || []).join(", ")}</p></div>
                                     </div>
 
                                     <div className="d-flex">
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("iRoutes")}</p>
                                         </div>
-                                        <div className="flex-shrink-0"><p className="mb-0">{user.iroutes.join(",")}</p></div>
+                                        <div className="flex-shrink-0"><p className="mb-0">{(user.iroutes || []).join(", ")}</p></div>
                                     </div>
 
                                     <div className="d-flex">
@@ -261,7 +261,7 @@ const UserCardModal = (props) => {
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("Restricted to ports")}</p>
                                         </div>
-                                        <div className="flex-shrink-0"><p className="mb-0">{user.restrictedtoports.join(",")}</p></div>
+                                        <div className="flex-shrink-0"><p className="mb-0">{(user.restrictedtoports || []).join(", ")}</p></div>
                                     </div>
                                 </div>
                             </Col>

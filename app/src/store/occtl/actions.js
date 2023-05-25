@@ -5,7 +5,7 @@ import {
     OCCTL_GET_STATUS_SUCCESS, OCCTL_GET_USER, OCCTL_GET_USER_ERROR, OCCTL_GET_USER_SUCCESS,
     OCCTL_GET_USERS,
     OCCTL_GET_USERS_ERROR,
-    OCCTL_GET_USERS_SUCCESS, OCCTL_RELOAD, OCCTL_RESET, OCCTL_START, OCCTL_STOP_NOW
+    OCCTL_GET_USERS_SUCCESS, OCCTL_RELOAD, OCCTL_RESET, OCCTL_START, OCCTL_STOP_NOW, OCCTL_UPDATE_USER
 
 } from "./actionTypes";
 
@@ -111,5 +111,12 @@ export const occtlReload = () => {
 export const occtlStopNow = () => {
     return {
         type: OCCTL_STOP_NOW
+    }
+}
+
+export const occtlUpdateUser = (data) => {
+    return {
+        type: OCCTL_UPDATE_USER,
+        payload: data
     }
 }
