@@ -869,6 +869,7 @@ sudo apt install nodejs -y
 #sudo apt install npm -y
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update
 sudo apt install yarn -y
 
 npm install -g pm2
@@ -910,10 +911,13 @@ cp -r app/build/* $webdir/
 
 
 cd api
-pm2 start app.js
+pm2 start ecosystem.config.js
+#pm2 start app.js
 cd ..
 
 echo "Compile APP and move files from directory app/build to $webdir and Open http://$domain:10034 using your email $email and password $PASSGEN"
 echo "Please change password for web access in file api/config.json"
 # Перезагрузка системы
 #sudo reboot
+#cat certificate.crt ca_bundle.crt > fullchain.pem
+#cp private.key privkey.pem
