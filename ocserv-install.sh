@@ -904,15 +904,15 @@ EOF
 #};
 #EOF
 
-cd app && yarn build
-cd ..
-cp -r app/build/* $webdir/
+#cd app && yarn build
+#cd ..
+#cp -r app/build/* $webdir/
 
 
 cd api
 pm2 start app.js
 cd ..
 
-echo "Open http://$domain:10034 using your email $email and password $PASSGEN"
+echo "Compile APP and move files from directory app/build to $webdir and Open http://$domain:10034 using your email $email and password $PASSGEN"
 # Перезагрузка системы
 #sudo reboot
