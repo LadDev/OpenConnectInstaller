@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const authData = require("../config.json")
 const auth = require("../middleware/admin.middleware")
+
+
 const modifyData = async (data) => {
     let obj = {...data};
 
@@ -68,10 +70,14 @@ router.get("/show/status", auth, async (req, res) => {
 
 router.get("/show/users", auth, async (req, res) => {
     try {
+        const filePath = '/etc/ocserv/ocpasswd';
+
+        const usersFile = fs.readFileSync(filePath, 'utf8').split("\n")
+
         exec('occtl --json show users', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, users: data});
+                return res.status(200).json({code: 0, users: data,usersFile});
             }catch (e) {
                 return res.status(200).json({code: 0, users: []});
             }
