@@ -1,53 +1,57 @@
 # OpenConnect VPN
 
-OpenConnect VPN – это реализация с открытым исходным кодом протокола Cisco 
-AnyConnnect VPN, который широко используется на предприятиях и в 
-университетах.
+OpenConnect VPN is an open source implementation of the Cisco
+AnyConnect VPN protocol, which is widely used in enterprises and
+universities.
 
 
-Особенности:
-- Легкий и быстрый.
-- Работает на Linux и большинстве BSD-серверов.
-- Совместимость с клиентом Cisco AnyConnect
-- Существует клиентское программное обеспечение OpenConnect для Linux, 
-macOS, Windows и OpenWRT. Для Android и iOS можно использовать клиент Cisco 
-AnyConnect Client.
-- Поддерживает аутентификацию по паролю и сертификату
-- Поддерживает учет RADIUS.
-- Поддерживает виртуальный хостинг (несколько доменов).
-- Легко настраивается
-- Устойчив к глубокой проверке пакетов (DPI). Основан на HTTPS, поэтому очень 
-- хорошо проникает через брандмауэры.
+Features:
+- Lightweight and fast.
+- Works on Linux and most BSD servers.
+- Cisco AnyConnect client compatibility
+- There is OpenConnect client software for Linux,
+  macOS, Windows, and OpenWRT. For Android and iOS, you can use the Cisco
+  AnyConnect Client.
+- Supports password and certificate authentication
+- Supports RADIUS accounting.
+- Supports shared hosting (multiple domains).
+- Easy to configure
+- Resistant to deep packet inspection (DPI). It's based on HTTPS, so it penetrates the firewall very well.
+- Penetrates firewalls very well.
 
-Лучше всего подходит: Людям, которым нужно VPN-решение для обхода 
-национальных брандмауэров или для управления большим количеством VPN-
-пользователей, а также тем, кто не хочет жертвовать скоростью.
+Best for: People who need a VPN solution to bypass
+national firewalls or to manage a large number of VPN
+users, as well as those who don't want to sacrifice speed.
 
-# Установщик OpenConnectVPN сервер
-Установочный скрипт для автоматической установки и настройки OpenConnect VPN Server на Ubuntu
+# OpenConnectVPN server installer
+The installation script for automatically installing and configuring OpenConnect VPN Server on Ubuntu, as well as for installing the administration panel
 
-Для установки необходимо скачать скрипт ocserv-installer.ch
+To install you need to download the script ocserv-installer.ch
 ```
 git clone https://github.com/LadDev/OpenConnectInstaller.git
 ```
-далее необходимо зайти в папку со скриптом и дать ему разрешение на выполнение
+then you need to enter the folder with the script and give it permission to run
 
 ```
 cd OpenConnectInstaller
 chmod +x ocserv-install.sh
 ```
-и далее выполнить скрипт
+and then run the script
 
 ```
 ./ocserv-install.sh
 ```
-После того как вы выполните скрипт следуйте инструкциям которые будут предлагаться во время выполнения
+After running the script, follow the instructions that will be prompted during the installation
 
+After successful installation the admin panel will be created at http://your_doamein:10034 login and password will be displayed in the installation console. You can also see the login and password in the file
+```
+api/config.json
+```
 
-!!!Внимание!!! OpenConnect VPN использует порт 443 для соединений, если на вашем сервере работают другие проекты и используется этот порт, это может нарушить работу ваших приложений. 
-Рекомендуется установка на отдельный сервер
+!!!Attention!!! OpenConnect VPN uses port 443 for connections, if you have other projects running on your server and this port is used, it can disrupt your applications.
+Installation on a separate server is recommended
 
-Все настройки для установки сервера были взяты из статьи:
+All settings for server installation were taken from the article:
 ```url
 https://www.linuxbabe.com/ubuntu/openconnect-vpn-server-ocserv-ubuntu-20-04-lets-encrypt
 ```
