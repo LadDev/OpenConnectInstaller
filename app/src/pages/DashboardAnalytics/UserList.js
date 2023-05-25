@@ -60,6 +60,11 @@ const UsersList = (props) => {
         toggleUserCard()
     }
 
+    const addUser = () =>{
+        setUser(null)
+        toggleUserCard()
+    }
+
     return (
         <React.Fragment>
 
@@ -69,6 +74,19 @@ const UsersList = (props) => {
                 <Card>
                     <CardHeader className="align-items-center d-flex">
                         <h4 className="card-title mb-0 flex-grow-1">{props.t("Users List")}</h4>
+                        <React.Fragment>
+                            <div className="flex-shrink-0">
+                                <button type="button" className="btn btn-soft-primary btn-sm">
+                                    {props.t("BackUp")}
+                                </button>
+                            </div>
+                            {"  "}
+                            <div className="flex-shrink-0">
+                                <button type="button" onClick={addUser} className="btn btn-soft-primary btn-sm">
+                                    {props.t("Create")}
+                                </button>
+                            </div>
+                        </React.Fragment>
                     </CardHeader>
 
                     <CardBody>

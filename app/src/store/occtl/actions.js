@@ -1,4 +1,5 @@
 import {
+    OCCTL_ADD_USER,
     OCCTL_DISCONNECT_USER, OCCTL_DISCONNECT_USER_ERROR, OCCTL_DISCONNECT_USER_SUCCESS,
     OCCTL_GET_STATUS,
     OCCTL_GET_STATUS_ERROR,
@@ -117,6 +118,12 @@ export const occtlStopNow = () => {
 export const occtlUpdateUser = (data) => {
     return {
         type: OCCTL_UPDATE_USER,
+        payload: data
+    }
+}
+export const occtlAddUser = (data) => {
+    return {
+        type: OCCTL_ADD_USER,
         payload: data
     }
 }

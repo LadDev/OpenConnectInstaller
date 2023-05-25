@@ -231,4 +231,5 @@ export const GET_OCCTL_RESET = "/api/reset";
 export const GET_OCCTL_STOP_NOW = "/api/stop-now";
 export const GET_OCCTL_START = "/api/start";
 export const POST_AUTH = "/api/auth";
-export const POST_UPDATE_USER = "/edit/user";
+export const POST_UPDATE_USER = "/api/edit/user";
+export const POST_ADD_USER = "/api/add/user";

@@ -301,10 +301,13 @@ router.post("/add/user", auth, async (req, res) => {
 
         fs.appendFileSync('/etc/ocserv/ocpasswd', userEntry);
 
+
+
         exec('occtl --json show users', async (error, stdout) => {
             try{
+                const usersFile = fs.readFileSync('/etc/ocserv/ocpasswd', 'utf8').split("\n")
                 const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, users: data});
+                return res.status(200).json({code: 0, users: data,usersFile});
             }catch (e) {
                 return res.status(200).json({code: 0, users: []});
             }

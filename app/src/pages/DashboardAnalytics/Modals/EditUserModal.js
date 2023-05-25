@@ -5,19 +5,35 @@ import { Button, Modal,ModalHeader, ModalFooter, ModalBody, Row, Col, Form,
     FormFeedback,
     Input,
     Label } from 'reactstrap';
-import {useDispatch, useSelector} from "react-redux";
-import {disconnectUser, fetchOcctlUser, occtlUpdateUser} from "../../../store/occtl/actions";
+import {useDispatch} from "react-redux";
+import {occtlAddUser, occtlUpdateUser} from "../../../store/occtl/actions";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
 const EditUserModal = (props) => {
     const dispatch = useDispatch()
     const [modalState, setModalState] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
 
 
     useEffect(()=>{
         setModalState(props.modalState)
+
+        if(!props.modalState){
+            setIsEdit(false)
+        }
+
     },[props.modalState])
+
+    useEffect(()=>{
+        if(props.user !== {} && props.user !== null){
+            setIsEdit(true)
+        }else{
+            setIsEdit(false)
+        }
+    },[props.user])
+
+
 
     const toggleModal = () => {
         props.toggle()
@@ -28,7 +44,7 @@ const EditUserModal = (props) => {
         enableReinitialize: true,
 
         initialValues: {
-            username: props.user.username || "",
+            username: props.user?props.user.username || "":"",
             password: "",
             confirm_password: "",
         },
@@ -38,7 +54,12 @@ const EditUserModal = (props) => {
             confirm_password: Yup.string().required(props.t("Please Confirm Password")),
         }),
         onSubmit: (values) => {
-            dispatch(occtlUpdateUser({...values,groupname:"*"}))
+            if(isEdit){
+                dispatch(occtlUpdateUser({...values,groupname:"*"}))
+            }else{
+                dispatch(occtlAddUser({...values,groupname:"*"}))
+            }
+
             //dispatch(setAccountsAboutAction({ids:props.selected,about:values.about}))
             //dispatch(setUsernamesAction({usernames:completeUsernames,ids:selected}))
 
@@ -58,7 +79,7 @@ const EditUserModal = (props) => {
                 <ModalHeader toggle={() => {
                     toggleModal();
                 }}>
-                    {props.t("Edit User")}
+                    {isEdit?props.t("Edit User"):props.t("Add User")}
                 </ModalHeader>
                 <ModalBody>
 
@@ -71,8 +92,8 @@ const EditUserModal = (props) => {
                                 type={"text"}
                                 onChange={validation.handleChange}
                                 placeholder={props.t("Enter yours Username...")}
-                                defaultValue={props.user.username}
-                                disabled={props.user && props.user.username !== ""}
+                                defaultValue={props.user?props.user.username:""}
+                                disabled={isEdit}
                                 invalid={
                                     validation.touched.username && validation.errors.username ? true : false
                                 }
@@ -118,9 +139,15 @@ const EditUserModal = (props) => {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="light" onClick={() => {toggleModal()}}>{props.t("Close")}</Button>
-                    <Button color="success" onClick={()=>{validation.handleSubmit()}}>
-                        {props.t("Update")}
-                    </Button>
+                    {isEdit?(
+                        <Button color="success" onClick={()=>{validation.handleSubmit()}}>
+                            {props.t("Update")}
+                        </Button>
+                    ):(
+                        <Button color="success" onClick={()=>{validation.handleSubmit()}}>
+                            {props.t("Create")}
+                        </Button>
+                    )}
                 </ModalFooter>
             </Modal>
         </React.Fragment>
@@ -129,7 +156,6 @@ const EditUserModal = (props) => {
 
 EditUserModal.propTypes = {
     t: PropTypes.any,
-    user: PropTypes.object,
     modalState: PropTypes.bool,
     toggle: PropTypes.func
 };

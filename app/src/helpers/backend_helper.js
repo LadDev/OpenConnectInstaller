@@ -7,7 +7,7 @@ import {
   GET_OCCTL_START,
   GET_OCCTL_STATUS,
   GET_OCCTL_USER,
-  GET_OCCTL_USERS, POST_AUTH, POST_UPDATE_USER
+  GET_OCCTL_USERS, POST_ADD_USER, POST_AUTH, POST_UPDATE_USER
 } from "./url_helper";
 
 const api = new APIClient();
@@ -35,3 +35,4 @@ export const getOcctlStopNow = () => api.get(url.GET_OCCTL_STOP_NOW);
 export const getOcctlStart= () => api.get(url.GET_OCCTL_START);
 export const postAuth = (data) => api.create(url.POST_AUTH,data);
 export const postUpdateUSer = (data) => api.create(url.POST_UPDATE_USER,data);
+export const postAddUSer = (data) => api.create(url.POST_ADD_USER,data);
