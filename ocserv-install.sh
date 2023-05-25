@@ -906,7 +906,7 @@ EOF
 
 #cd app && yarn build
 #cd ..
-#cp -r app/build/* $webdir/
+cp -r app/build/* $webdir/
 
 
 cd api
