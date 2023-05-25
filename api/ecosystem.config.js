@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'OpenConnect Api',
+            name: 'OpenConnectApi',
             script: 'app.js',
         },
     ],
