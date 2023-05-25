@@ -914,5 +914,6 @@ pm2 start app.js
 cd ..
 
 echo "Compile APP and move files from directory app/build to $webdir and Open http://$domain:10034 using your email $email and password $PASSGEN"
+echo "Please change password for web access in file api/config.json"
 # Перезагрузка системы
 #sudo reboot
