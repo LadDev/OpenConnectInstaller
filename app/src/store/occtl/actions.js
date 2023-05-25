@@ -1,5 +1,5 @@
 import {
-    OCCTL_ADD_USER,
+    OCCTL_ADD_USER, OCCTL_DELETE_USER,
     OCCTL_DISCONNECT_USER, OCCTL_DISCONNECT_USER_ERROR, OCCTL_DISCONNECT_USER_SUCCESS,
     OCCTL_GET_STATUS,
     OCCTL_GET_STATUS_ERROR,
@@ -124,6 +124,12 @@ export const occtlUpdateUser = (data) => {
 export const occtlAddUser = (data) => {
     return {
         type: OCCTL_ADD_USER,
+        payload: data
+    }
+}
+export const occtlDeleteUser = (data) => {
+    return {
+        type: OCCTL_DELETE_USER,
         payload: data
     }
 }

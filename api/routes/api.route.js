@@ -350,7 +350,55 @@ router.post("/edit/user", auth, async (req, res) => {
 
         fs.writeFileSync(filePath,newUsersFile.join("\n")+"\n")
 
-        return res.status(200).json({code: 0});
+        exec('occtl --json show users', async (error, stdout) => {
+            try{
+                const usersFile = fs.readFileSync('/etc/ocserv/ocpasswd', 'utf8').split("\n")
+                const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0, users: data,usersFile});
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
+            }
+        });
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
+
+})
+
+router.post("/delete/user", auth, async (req, res) => {
+    try {
+
+        const {username} = req.body
+
+        const filePath = '/etc/ocserv/ocpasswd';
+
+        const usersFile = fs.readFileSync(filePath, 'utf8').split("\n")
+
+        let newUsersFile = []
+
+        for(const usr of usersFile){
+            if(usr !== ""){
+                const oldUserData = usr.split(":")
+
+                if(oldUserData[0] !== username){
+                    newUsersFile.push(usr)
+                }
+            }
+        }
+
+        fs.writeFileSync(filePath,newUsersFile.join("\n")+"\n")
+
+        exec('occtl --json show users', async (error, stdout) => {
+            try{
+                const usersFile = fs.readFileSync('/etc/ocserv/ocpasswd', 'utf8').split("\n")
+                const data = await parseData(JSON.parse(stdout));
+                return res.status(200).json({code: 0, users: data,usersFile});
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
+            }
+        });
 
     } catch (error) {
         console.error(error)

@@ -4,7 +4,7 @@ import {withTranslation} from "react-i18next";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import UserCardModal from "./Modals/UserCardModal";
-import {disconnectUser} from "../../store/occtl/actions";
+import {disconnectUser, occtlDeleteUser} from "../../store/occtl/actions";
 import EditUserModal from "./Modals/EditUserModal";
 
 const UsersList = (props) => {
@@ -65,6 +65,24 @@ const UsersList = (props) => {
         toggleUserCard()
     }
 
+    const downloadToFile = () => {
+
+        const filename = `ocpasswd`;
+        const blob = new Blob([serverUsersFile.join('\n')], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    const deleteUSer = (username) => {
+        dispatch(occtlDeleteUser(username))
+    }
+
     return (
         <React.Fragment>
 
@@ -76,7 +94,7 @@ const UsersList = (props) => {
                         <h4 className="card-title mb-0 flex-grow-1">{props.t("Users List")}</h4>
                         <React.Fragment>
                             <div className="flex-shrink-0">
-                                <button type="button" className="btn btn-soft-primary btn-sm">
+                                <button type="button" onClick={downloadToFile} className="btn btn-soft-primary btn-sm">
                                     {props.t("BackUp")}
                                 </button>
                             </div>
@@ -121,7 +139,7 @@ const UsersList = (props) => {
                                                 <React.Fragment>
                                                     <Button color="success" onClick={()=>{editUser(user)}}>{props.t("Edit")}</Button>
                                                     {" "}
-                                                    <Button color="danger" onClick={()=>{}}>{props.t("Delete")}</Button>
+                                                    <Button color="danger" onClick={()=>{deleteUSer(user.username)}}>{props.t("Delete")}</Button>
                                                 </React.Fragment>
                                             )}
                                         </td>

@@ -60,6 +60,7 @@ const EditUserModal = (props) => {
                 dispatch(occtlAddUser({...values,groupname:"*"}))
             }
 
+            props.toggle()
             //dispatch(setAccountsAboutAction({ids:props.selected,about:values.about}))
             //dispatch(setUsernamesAction({usernames:completeUsernames,ids:selected}))
 

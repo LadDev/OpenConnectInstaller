@@ -2,7 +2,7 @@ import { takeEvery, put, call } from "redux-saga/effects"
 
 // Calender Redux States
 import {
-  OCCTL_ADD_USER,
+  OCCTL_ADD_USER, OCCTL_DELETE_USER,
   OCCTL_DISCONNECT_USER,
   OCCTL_GET_STATUS,
   OCCTL_GET_USER,
@@ -29,7 +29,7 @@ import {
   getOcctl, getOcctlReload,
   getOcctlReset, getOcctlStart, getOcctlStopNow,
   getOcctlUser,
-  getOcctlUsers, postAddUSer, postUpdateUSer
+  getOcctlUsers, postAddUSer, postDeleteUSer, postUpdateUSer
 } from "../../helpers/backend_helper";
 
 function* fetchOcctlStatus() {
@@ -102,15 +102,25 @@ function* occtlStart() {
 
 function* occtlUpdateUser({payload: data}) {
   try {
-    yield call(postUpdateUSer, data)
+    const response = yield call(postUpdateUSer, data)
+    yield put(fetchOcctlUsersSuccess(response))
   } catch (error) {
-    // yield put(disconnectUserError(error))
+    yield put(fetchOcctlUsersError(error))
   }
 }
 
 function* occtlAddUser({payload: data}) {
   try {
     const response = yield call(postAddUSer, data)
+    yield put(fetchOcctlUsersSuccess(response))
+  } catch (error) {
+    yield put(fetchOcctlUsersError(error))
+  }
+}
+
+function* occtlDeleteUser({payload: data}) {
+  try {
+    const response = yield call(postDeleteUSer, data)
     yield put(fetchOcctlUsersSuccess(response))
   } catch (error) {
     yield put(fetchOcctlUsersError(error))
@@ -128,6 +138,7 @@ function* occtlSaga() {
   yield takeEvery(OCCTL_START, occtlStart)
   yield takeEvery(OCCTL_UPDATE_USER, occtlUpdateUser)
   yield takeEvery(OCCTL_ADD_USER, occtlAddUser)
+  yield takeEvery(OCCTL_DELETE_USER, occtlDeleteUser)
 
 
 }
