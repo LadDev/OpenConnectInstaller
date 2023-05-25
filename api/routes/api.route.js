@@ -292,12 +292,12 @@ router.get("/stop-now", auth, async (req, res) => {
 router.post("/add/user", auth, async (req, res) => {
     try {
 
-        const {username,password,group} = req.body
+        const {username,password,groupname} = req.body
         const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const userEntry = `${username}:${group}:${hashedPassword}\n`;
+        const userEntry = `${username}:*:${hashedPassword}\n`;
 
         fs.appendFileSync('/etc/ocserv/ocpasswd', userEntry);
 
@@ -322,13 +322,13 @@ router.post("/add/user", auth, async (req, res) => {
 router.post("/edit/user", auth, async (req, res) => {
     try {
 
-        const {username,password,group} = req.body
+        const {username,password,groupname} = req.body
 
         const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const userEntry = `${username}:${group}:${hashedPassword}\n`;
+        const userEntry = `${username}:*:${hashedPassword}`;
 
         const filePath = '/etc/ocserv/ocpasswd';
 
@@ -348,7 +348,7 @@ router.post("/edit/user", auth, async (req, res) => {
             }
         }
 
-        fs.writeFileSync(filePath,newUsersFile.join("\n"))
+        fs.writeFileSync(filePath,newUsersFile.join("\n")+"\n")
 
         return res.status(200).json({code: 0});
 
