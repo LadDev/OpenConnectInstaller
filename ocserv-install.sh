@@ -869,10 +869,14 @@ sudo apt install yarn -y
 
 npm install -g pm2
 
+sudo systemctl daemon-reload
+sudo systemctl enable pm2
+sudo systemctl start pm2
+
 cd api && npm install
 cd ..
-cd app && yarn install
-cd ..
+#cd app && yarn install
+#cd ..
 
 PASSGEN=$(openssl rand -base64 12)
 SALT=$(openssl rand -base64 48)
@@ -905,6 +909,6 @@ cd api
 pm2 start app.js
 cd ..
 
-echo "Open http://localhost:10034 using your email $email and password $PASSGEN"
+echo "Open http://$domain:10034 using your email $email and password $PASSGEN"
 # Перезагрузка системы
 #sudo reboot
