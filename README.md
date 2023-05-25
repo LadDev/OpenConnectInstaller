@@ -48,6 +48,8 @@ After successful installation the admin panel will be created at http://your_doa
 api/config.json
 ```
 
+![Описание изображения](screen_shot.png)
+
 !!!Attention!!! OpenConnect VPN uses port 443 for connections, if you have other projects running on your server and this port is used, it can disrupt your applications.
 Installation on a separate server is recommended
 
