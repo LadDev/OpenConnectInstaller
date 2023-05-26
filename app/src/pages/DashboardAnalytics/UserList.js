@@ -55,10 +55,17 @@ const UsersList = (props) => {
         setUserCardModal(!userCardModal)
     }
     const disconnectUsr = (username) => {
+
+        let IDs = []
+
         for(const usr of serverUsers){
             if(username === usr.username){
-                dispatch(disconnectUser(usr.id))
+                IDs.push(usr.id)
             }
+        }
+
+        for(const id of IDs){
+            dispatch(disconnectUser(id))
         }
     }
 
