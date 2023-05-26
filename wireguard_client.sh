@@ -52,17 +52,17 @@ sudo systemctl enable wg-quick@wg0
 sudo systemctl start wg-quick@wg0
 
 # Путь к файлу JSON
-json_file="api/config.json"
+#json_file="api/config.json"
 
 # Новые значения для полей wg_installed и wg_addr
-new_wg_installed=true
-new_wg_addr=$address
+#new_wg_installed=true
+#new_wg_addr=$address
 
 # Изменение полей с помощью jq и сохранение изменений во временном файле
-jq '.wg_installed = $new_wg_installed | .wg_addr = $new_wg_addr' --argjson new_wg_installed "$new_wg_installed" --arg new_wg_addr "$new_wg_addr" "$json_file" > temp.json
+#jq '.wg_installed = $new_wg_installed | .wg_addr = $new_wg_addr' --argjson new_wg_installed "$new_wg_installed" --arg new_wg_addr "$new_wg_addr" "$json_file" > temp.json
 
 # Переименование временного файла в исходное имя файла
-cp temp.json "$json_file"
+#cp temp.json "$json_file"
 
 sudo wg-quick down wg0
 sudo wg-quick up wg0

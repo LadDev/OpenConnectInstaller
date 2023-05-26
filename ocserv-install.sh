@@ -263,7 +263,7 @@ ca-cert = /etc/ssl/certs/ssl-cert-snakeoil.pem
 isolate-workers = true
 
 # A banner to be displayed on clients
-#banner = "Welcome"
+#banner = "Welcome to LadDev OpenConnect VPN"
 
 # Limit the number of clients. Unset or set to zero for unlimited.
 #max-clients = 1024
