@@ -804,8 +804,8 @@ sudo echo "$new_line" >> "/etc/ufw/before.rules"
 
 # Строки, которые нужно добавить
 new_lines="# allow forwarding for trusted network
--A ufw-before-forward -s 10.10.10.0/24 -j ACCEPT
--A ufw-before-forward -d 10.10.10.0/24 -j ACCEPT"
+-A ufw-before-forward -s $ipv4network/24 -j ACCEPT
+-A ufw-before-forward -d $ipv4network/24 -j ACCEPT"
 
 # Путь к файлу
 file_path="/etc/ufw/before.rules"
