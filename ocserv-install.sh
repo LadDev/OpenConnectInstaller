@@ -863,6 +863,8 @@ sudo ufw allow 10033/tcp
 sudo ufw allow 10034/tcp
 sudo ufw allow 10033/udp
 sudo ufw allow 10034/udp
+sudo ufw allow 8123/udp
+sudo ufw allow 8123/udp
 
 curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install nodejs -y
@@ -917,9 +919,15 @@ pm2 start ecosystem.config.js
 #pm2 start app.js
 cd ..
 
+sudo systemctl status ocserv
+
 echo "Compile APP and move files from directory app/build to $webdir and Open http://$domain:10034 using your email $email and password $PASSGEN"
 echo "Please change password for web access in file api/config.json"
 # Перезагрузка системы
 #sudo reboot
 #cat certificate.crt ca_bundle.crt > fullchain.pem
 #cp private.key privkey.pem
+
+sudo apt-get install socat -y
+
+#socat TCP-LISTEN:8123,fork,reuseaddr TCP:10.0.0.17:8123 &
