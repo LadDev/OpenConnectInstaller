@@ -313,12 +313,6 @@ router.post("/add/user", auth, async (req, res) => {
             }
         });
 
-        exec('sudo systemctl restart ocserv', async () => {
-            try{
-            }catch (e) {
-                return res.status(200).json({code: 0, users: []});
-            }
-        });
     } catch (error) {
         console.error(error)
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
@@ -367,12 +361,6 @@ router.post("/edit/user", auth, async (req, res) => {
             }
         });
 
-        exec('sudo systemctl restart ocserv', async () => {
-            try{
-            }catch (e) {
-                return res.status(200).json({code: 0, users: []});
-            }
-        });
 
     } catch (error) {
         console.error(error)
@@ -414,12 +402,6 @@ router.post("/delete/user", auth, async (req, res) => {
             }
         });
 
-        exec('sudo systemctl restart ocserv', async () => {
-            try{
-            }catch (e) {
-                return res.status(200).json({code: 0, users: []});
-            }
-        });
 
     } catch (error) {
         console.error(error)
