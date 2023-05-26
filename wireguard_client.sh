@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt-get install wireguard -y
+sudo apt install openresolv -y
 
 read -p "Введите адрес сервер к которому следует подключиться (Endpoint в файле конфигурации): " endpoint
 endpoint=${endpoint:-192.168.0.178}
@@ -24,6 +25,9 @@ private=${private:-""}
 read -p "Публичный ключ (PublicKey): " publick
 publick=${publick:-""}
 
+read -p "Диапазон подсети в которой работает OpenConnect например 10.10.10.0/24 (Нажмите Enter тогда весь трафик сервера будет направлен через WaerGuard): " allowed
+allowed=${allowed:-"0.0.0.0/0"}
+
 
 sudo tee /etc/wireguard/wg0.conf > /dev/null << EOF
 [Interface]
@@ -34,7 +38,7 @@ MTU = $mtu
 
 [Peer]
 PublicKey = $publick
-AllowedIPs = 0.0.0.0/0
+AllowedIPs = $allowed
 Endpoint = $endpoint:$port
 PersistentKeepalive = 21
 EOF
@@ -58,4 +62,7 @@ new_wg_addr=$address
 jq '.wg_installed = $new_wg_installed | .wg_addr = $new_wg_addr' --argjson new_wg_installed "$new_wg_installed" --arg new_wg_addr "$new_wg_addr" "$json_file" > temp.json
 
 # Переименование временного файла в исходное имя файла
-mv temp.json "$json_file"
+cp temp.json "$json_file"
+
+sudo wg-quick down wg0
+sudo wg-quick up wg0

@@ -893,7 +893,7 @@ sudo tee api/config.json > /dev/null <<EOF
 {
   "email":"$email",
   "password":"$PASSGEN",
-  "salt":"$SALT"
+  "salt":"$SALT",
   "wg_installed": false,
   "wg_addr": ""
 }
