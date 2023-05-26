@@ -54,8 +54,12 @@ const UsersList = (props) => {
     const toggleUserCard = () => {
         setUserCardModal(!userCardModal)
     }
-    const disconnectUsr = (id) => {
-        dispatch(disconnectUser(id))
+    const disconnectUsr = (username) => {
+        for(const usr of serverUsers){
+            if(username === usr.username){
+                dispatch(disconnectUser(usr.id))
+            }
+        }
     }
 
     const editUser = (usr) =>{
@@ -137,7 +141,7 @@ const UsersList = (props) => {
                                         <td>
                                             {user.status==="online"?(
                                                 <React.Fragment>
-                                                    <Button color="warning" onClick={()=>{disconnectUsr(user.id)}}>{props.t("Disconnect")}</Button>
+                                                    <Button color="warning" onClick={()=>{disconnectUsr(user.username)}}>{props.t("Disconnect")}</Button>
                                                 </React.Fragment>
                                             ):(
                                                 <React.Fragment>
