@@ -111,7 +111,7 @@ router.get("/show/user/:id/disconnect", auth, async (req, res) => {
     try {
 
         const {id} = req.params
-        exec('occtl --json disconnect id '+id, async (error, stdout) => {
+        exec('occtl --json disconnect id '+id, async () => {
             try{
                 //const data = await parseData(JSON.parse(stdout)) || [];
                 return res.status(200).json({code: 0});
@@ -292,7 +292,7 @@ router.get("/stop-now", auth, async (req, res) => {
 router.post("/add/user", auth, async (req, res) => {
     try {
 
-        const {username,password,groupname} = req.body
+        const {username,password} = req.body
         const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
@@ -312,6 +312,13 @@ router.post("/add/user", auth, async (req, res) => {
                 return res.status(200).json({code: 0, users: []});
             }
         });
+
+        exec('sudo systemctl restart ocserv', async () => {
+            try{
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
+            }
+        });
     } catch (error) {
         console.error(error)
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
@@ -322,7 +329,7 @@ router.post("/add/user", auth, async (req, res) => {
 router.post("/edit/user", auth, async (req, res) => {
     try {
 
-        const {username,password,groupname} = req.body
+        const {username,password} = req.body
 
         const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
@@ -355,6 +362,13 @@ router.post("/edit/user", auth, async (req, res) => {
                 const usersFile = fs.readFileSync('/etc/ocserv/ocpasswd', 'utf8').split("\n")
                 const data = await parseData(JSON.parse(stdout));
                 return res.status(200).json({code: 0, users: data,usersFile});
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
+            }
+        });
+
+        exec('sudo systemctl restart ocserv', async () => {
+            try{
             }catch (e) {
                 return res.status(200).json({code: 0, users: []});
             }
@@ -395,6 +409,13 @@ router.post("/delete/user", auth, async (req, res) => {
                 const usersFile = fs.readFileSync('/etc/ocserv/ocpasswd', 'utf8').split("\n")
                 const data = await parseData(JSON.parse(stdout));
                 return res.status(200).json({code: 0, users: data,usersFile});
+            }catch (e) {
+                return res.status(200).json({code: 0, users: []});
+            }
+        });
+
+        exec('sudo systemctl restart ocserv', async () => {
+            try{
             }catch (e) {
                 return res.status(200).json({code: 0, users: []});
             }
