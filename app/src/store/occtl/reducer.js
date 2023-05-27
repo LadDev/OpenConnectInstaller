@@ -14,6 +14,7 @@ import {
 const INIT_STATE = {
   statusLoading: false,
   usersLoading: false,
+  cpuUsage: null,
   status: {},
   users: [],
   usersFile: [],
@@ -32,6 +33,7 @@ const Occtl = (state = INIT_STATE, action) => {
       return {
         ...state,
         status: action.payload.status,
+        cpuUsage: action.payload.cpuUsage,
         statusLoading: false
       }
     case OCCTL_GET_STATUS_ERROR:

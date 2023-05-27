@@ -67,10 +67,14 @@ router.get("/show/status", auth, async (req, res) => {
         const totalLoad = os.loadavg();
         const cpuUsage = await getCpuUsage();
 
+        const platform = os.platform()
+        const freemem = os.freemem()
+        const totalmem = os.freememPercentage()
+
         exec('occtl --json show status', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, status: data, cpuInfo, totalLoad, cpuUsage});
+                return res.status(200).json({code: 0, status: data, system: {platform, freemem, totalmem, cpuUsage}});
             }catch (e) {
                 console.error(e)
                 return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
