@@ -122,7 +122,7 @@ class OcctlExec {
                     let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
                     const lastIndex2 = jsonString.lastIndexOf(',');
-                    let jsonString2 = jsonString.slice(0, lastIndex2) + jsonString.slice(lastIndex2 + 1);
+                    let jsonString2 = jsonString.slice(0, lastIndex2)/* + jsonString.slice(lastIndex2 + 1);*/
 
                     console.info(jsonString2)
                     const data = await this.parseData(JSON.parse(jsonString2)) || [];
