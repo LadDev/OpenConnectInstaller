@@ -90,23 +90,12 @@ router.get("/show/status", auth, async (req, res) => {
 
         const cpuUsage = await getCpuUsage();
         const diskUsage = await getDiskUsage();
-
         const platform = os.platform()
         const freemem = os.freemem()
         const totalmem = os.totalmem()
-
         const status = await occtlExec.status()
 
         return res.status(200).json({code: 0, status, system: {platform, freemem, totalmem, cpuUsage, diskUsage}});
-        // exec('occtl --json show status', async (error, stdout) => {
-        //     try{
-        //         const data = await parseData(JSON.parse(stdout));
-        //         return res.status(200).json({code: 0, status: data, system: {platform, freemem, totalmem, cpuUsage, diskUsage}});
-        //     }catch (e) {
-        //         console.error(e)
-        //         return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
-        //     }
-        // });
     } catch (error) {
         console.error(error)
         return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
@@ -119,14 +108,9 @@ router.get("/show/users", auth, async (req, res) => {
 
         const usersFile = fs.readFileSync(filePath, 'utf8').split("\n")
 
-        exec('occtl --json show users', async (error, stdout) => {
-            try{
-                const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, users: data,usersFile});
-            }catch (e) {
-                return res.status(200).json({code: 0, users: []});
-            }
-        });
+        const users = await occtlExec.users()
+        return res.status(200).json({code: 0, users,usersFile});
+
     } catch (error) {
         console.error(error)
         return res.status(500).json({code: -1, message: "Something went wrong, please try again"})

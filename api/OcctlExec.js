@@ -15,6 +15,20 @@ class OcctlExec {
         });
     }
 
+    async users(){
+        return new Promise((resolve, reject) => {
+            exec('occtl --json show users', async (error, stdout) => {
+                try{
+                    const data = await this.parseData(JSON.parse(stdout));
+                    resolve(data)
+                }catch (e) {
+                    console.error(e)
+                    reject("Something went wrong, please try again")
+                }
+            });
+        });
+    }
+
     modifyData = async (data) => {
         let obj = {...data};
 
