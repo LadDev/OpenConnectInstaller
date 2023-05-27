@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {Container, Row, Col, Card, CardBody, CardHeader } from 'reactstrap';
+import {Container, Row } from 'reactstrap';
+import {withTranslation} from "react-i18next";
 
 //import COmponents
 import BreadCrumb from '../../Components/Common/BreadCrumb';
@@ -8,11 +9,10 @@ import {fetchOcctlStatus, fetchOcctlUsers} from "../../store/occtl/actions";
 import ServerStatus from "./Status";
 import UsersConnected from "./UsersConnected";
 import UserList from "./UserList";
-import {Link} from "react-router-dom";
-import {SemiCircularRadial} from "./RadialbarCharts";
 import ServerUsage from "./ServerUsage";
+import PropTypes from "prop-types";
 
-const DashboardAnalytics = () => {
+const DashboardAnalytics = (props) => {
     const dispatch = useDispatch();
     document.title="Analytics | OpenConnect VPN";
 
@@ -31,7 +31,7 @@ const DashboardAnalytics = () => {
         <React.Fragment>
             <div className="page-content">
                 <Container fluid>
-                    <BreadCrumb title="Analytics" pageTitle="Dashboards" />
+                    <BreadCrumb title={props.t("Analytics")} pageTitle={props.t("Dashboards")} />
 
                     <Row>
                         <ServerUsage />
@@ -50,5 +50,7 @@ const DashboardAnalytics = () => {
         </React.Fragment>
     );
 };
-
-export default DashboardAnalytics;
+DashboardAnalytics.propTypes = {
+    t: PropTypes.any
+};
+export default withTranslation()(DashboardAnalytics);

@@ -1,12 +1,24 @@
 import {
-    OCCTL_ADD_USER, OCCTL_DELETE_USER,
-    OCCTL_DISCONNECT_USER, OCCTL_DISCONNECT_USER_ERROR, OCCTL_DISCONNECT_USER_SUCCESS,
+    OCCTL_ADD_USER,
+    OCCTL_DELETE_USER,
+    OCCTL_DISCONNECT_USER,
+    OCCTL_DISCONNECT_USER_ERROR,
+    OCCTL_DISCONNECT_USER_SUCCESS,
     OCCTL_GET_STATUS,
     OCCTL_GET_STATUS_ERROR,
-    OCCTL_GET_STATUS_SUCCESS, OCCTL_GET_USER, OCCTL_GET_USER_ERROR, OCCTL_GET_USER_SUCCESS,
+    OCCTL_GET_STATUS_SUCCESS,
+    OCCTL_GET_USER,
+    OCCTL_GET_USER_ERROR,
+    OCCTL_GET_USER_SUCCESS,
     OCCTL_GET_USERS,
     OCCTL_GET_USERS_ERROR,
-    OCCTL_GET_USERS_SUCCESS, OCCTL_RELOAD, OCCTL_RESET, OCCTL_START, OCCTL_STOP_NOW, OCCTL_UPDATE_USER
+    OCCTL_GET_USERS_SUCCESS,
+    OCCTL_RELOAD,
+    OCCTL_RESET,
+    OCCTL_START,
+    OCCTL_STOP_NOW,
+    OCCTL_UPDATE_USER,
+    OCCTL_USER_SESSION, OCCTL_USER_SESSION_ERROR, OCCTL_USER_SESSION_SUCCESS
 
 } from "./actionTypes";
 
@@ -131,5 +143,26 @@ export const occtlDeleteUser = (data) => {
     return {
         type: OCCTL_DELETE_USER,
         payload: data
+    }
+}
+
+export const occtlGetUserSession = (id) => {
+    return {
+        type: OCCTL_USER_SESSION,
+        payload: id
+    }
+}
+
+export const occtlGetUserSessionSuccess = (data) => {
+    return {
+        type: OCCTL_USER_SESSION_SUCCESS,
+        payload: data
+    }
+}
+
+export const occtlGetUserSessionError = (error) => {
+    return {
+        type: OCCTL_USER_SESSION_ERROR,
+        payload: error
     }
 }

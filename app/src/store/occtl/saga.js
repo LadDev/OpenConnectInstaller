@@ -11,7 +11,7 @@ import {
   OCCTL_RESET,
   OCCTL_START,
   OCCTL_STOP_NOW,
-  OCCTL_UPDATE_USER
+  OCCTL_UPDATE_USER, OCCTL_USER_SESSION
 } from "./actionTypes"
 
 import {
@@ -20,7 +20,11 @@ import {
   fetchOcctlUsersError,
   fetchOcctlUsersSuccess,
   fetchOcctlUserError,
-  fetchOcctlUserSuccess, disconnectUserSuccess, disconnectUserError
+  fetchOcctlUserSuccess,
+  disconnectUserSuccess,
+  disconnectUserError,
+  occtlGetUserSessionSuccess,
+  occtlGetUserSessionError
 } from "./actions"
 
 //Include Both Helper File with needed methods
@@ -29,7 +33,7 @@ import {
   getOcctl, getOcctlReload,
   getOcctlReset, getOcctlStart, getOcctlStopNow,
   getOcctlUser,
-  getOcctlUsers, postAddUSer, postDeleteUSer, postUpdateUSer
+  getOcctlUsers, getUserSession, postAddUSer, postDeleteUSer, postUpdateUSer
 } from "../../helpers/backend_helper";
 
 function* fetchOcctlStatus() {
@@ -127,6 +131,15 @@ function* occtlDeleteUser({payload: data}) {
   }
 }
 
+function* occtlGetUserSession({payload: id}) {
+  try {
+    const response = yield call(getUserSession, id)
+    yield put(occtlGetUserSessionSuccess(response))
+  } catch (error) {
+    yield put(occtlGetUserSessionError(error))
+  }
+}
+
 function* occtlSaga() {
   yield takeEvery(OCCTL_GET_STATUS, fetchOcctlStatus)
   yield takeEvery(OCCTL_GET_USERS, fetchOcctlUsers)
@@ -139,6 +152,7 @@ function* occtlSaga() {
   yield takeEvery(OCCTL_UPDATE_USER, occtlUpdateUser)
   yield takeEvery(OCCTL_ADD_USER, occtlAddUser)
   yield takeEvery(OCCTL_DELETE_USER, occtlDeleteUser)
+  yield takeEvery(OCCTL_USER_SESSION, occtlGetUserSession)
 
 
 }

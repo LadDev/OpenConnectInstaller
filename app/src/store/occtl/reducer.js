@@ -8,7 +8,13 @@ import {
   OCCTL_GET_USER_SUCCESS,
   OCCTL_GET_USER_ERROR,
   OCCTL_GET_USER,
-  OCCTL_DISCONNECT_USER, OCCTL_RESET, OCCTL_STOP_NOW, OCCTL_RELOAD,
+  OCCTL_DISCONNECT_USER,
+  OCCTL_RESET,
+  OCCTL_STOP_NOW,
+  OCCTL_RELOAD,
+  OCCTL_USER_SESSION,
+  OCCTL_USER_SESSION_SUCCESS,
+  OCCTL_USER_SESSION_ERROR,
 } from "./actionTypes";
 
 const INIT_STATE = {
@@ -20,6 +26,7 @@ const INIT_STATE = {
   usersFile: [],
   user: null,
   error: {},
+  session: null
 };
 
 const Occtl = (state = INIT_STATE, action) => {
@@ -107,6 +114,21 @@ const Occtl = (state = INIT_STATE, action) => {
         // usersLoading: false
       }
 
+    case OCCTL_USER_SESSION:
+      return {
+        ...state,
+        session: null
+      }
+    case OCCTL_USER_SESSION_SUCCESS:
+      return {
+        ...state,
+        session: action.payload.session
+      }
+    case OCCTL_USER_SESSION_ERROR:
+      return {
+        ...state,
+        session: null
+      }
     case OCCTL_STOP_NOW:
       return {
         ...state,

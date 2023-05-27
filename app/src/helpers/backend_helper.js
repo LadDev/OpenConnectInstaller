@@ -1,14 +1,6 @@
 import { APIClient } from "./api_helper";
 
 import * as url from "./url_helper";
-import {
-  GET_OCCTL_RELOAD,
-  GET_OCCTL_RESET,
-  GET_OCCTL_START,
-  GET_OCCTL_STATUS,
-  GET_OCCTL_USER,
-  GET_OCCTL_USERS, POST_ADD_USER, POST_AUTH, POST_DELETE_USER, POST_UPDATE_USER
-} from "./url_helper";
 
 const api = new APIClient();
 
@@ -37,3 +29,4 @@ export const postAuth = (data) => api.create(url.POST_AUTH,data);
 export const postUpdateUSer = (data) => api.create(url.POST_UPDATE_USER,data);
 export const postAddUSer = (data) => api.create(url.POST_ADD_USER,data);
 export const postDeleteUSer = (data) => api.create(url.POST_DELETE_USER,data);
+export const getUserSession = (data) => api.get(url.POST_GET_USER_SESSION+data);

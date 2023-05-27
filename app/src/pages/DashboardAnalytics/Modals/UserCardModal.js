@@ -1,18 +1,21 @@
-import React, {PureComponent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {withTranslation} from "react-i18next";
 import { Button, Modal,ModalHeader, ModalFooter, ModalBody, Row, Col } from 'reactstrap';
 import {useDispatch, useSelector} from "react-redux";
-import {disconnectUser, fetchOcctlUser} from "../../../store/occtl/actions";
+import {disconnectUser, fetchOcctlUser, occtlGetUserSession} from "../../../store/occtl/actions";
 
 const UserCardModal = (props) => {
     const dispatch = useDispatch()
     const [modalState, setModalState] = useState(false);
     const [user, setUser] = useState(null);
+    const [session, setSession] = useState({});
+    const [deviceInfo, setDeviceInfo] = useState(["","","",""]);
 
-    const {serverUser} = useSelector(state => ({
+    const {serverUser, serverSession} = useSelector(state => ({
         loading: state.Occtl.usersLoading,
         serverUser: state.Occtl.user,
+        serverSession: state.Occtl.session,
         error: state.Occtl.error,
     }));
 
@@ -21,6 +24,7 @@ const UserCardModal = (props) => {
 
         if(props.modalState){
             dispatch(fetchOcctlUser(props.user.id))
+            dispatch(occtlGetUserSession(props.user.session))
         }
 
     },[props.modalState])
@@ -28,6 +32,15 @@ const UserCardModal = (props) => {
     useEffect(()=>{
         setUser(props.user)
     },[props.user])
+
+    useEffect(()=>{
+        if(serverSession && serverSession.useragent){
+            setDeviceInfo(serverSession.useragent.split(" "))
+        }else{
+            setDeviceInfo(["","","",""])
+        }
+        setSession(serverSession)
+    },[serverSession])
 
     useEffect(()=>{
         if(serverUser){
@@ -68,12 +81,43 @@ const UserCardModal = (props) => {
                                         <div className="flex-shrink-0"><p className="mb-0">{user.id}</p></div>
                                     </div>
 
+                                    <br />
+
                                     <div className="d-flex">
                                         <div className="flex-grow-1">
                                             <p className="text-truncate text-muted fs-14 mb-0">{props.t("Username")}</p>
                                         </div>
                                         <div className="flex-shrink-0"><p className="mb-0">{user.username}</p></div>
                                     </div>
+
+                                    {deviceInfo.length>0?(
+                                        <div className="d-flex">
+                                            <div className="flex-grow-1">
+                                                <p className="text-truncate text-muted fs-14 mb-0">{props.t("Application")}</p>
+                                            </div>
+                                            <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[0]}</p></div>
+                                        </div>
+                                    ):("")}
+
+                                    {deviceInfo.length>2?(
+                                        <div className="d-flex">
+                                            <div className="flex-grow-1">
+                                                <p className="text-truncate text-muted fs-14 mb-0">{props.t("App Version")}</p>
+                                            </div>
+                                            <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[3]}</p></div>
+                                        </div>
+                                    ):("")}
+
+                                    {deviceInfo.length>3?(
+                                        <div className="d-flex">
+                                            <div className="flex-grow-1">
+                                                <p className="text-truncate text-muted fs-14 mb-0">{props.t("User Device")}</p>
+                                            </div>
+                                            <div className="flex-shrink-0"><p className="mb-0 bold">{deviceInfo[2].replace("(", "").replace(")"," ")}</p></div>
+                                        </div>
+                                    ):("")}
+
+                                    <br />
 
                                     <div className="d-flex">
                                         <div className="flex-grow-1">
