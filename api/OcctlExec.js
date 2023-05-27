@@ -53,7 +53,10 @@ class OcctlExec {
         return new Promise((resolve, reject) => {
             exec('occtl --json show status', async (error, stdout) => {
                 try{
-                    const data = await this.parseData(JSON.parse(stdout));
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
+                    const data = await this.parseData(JSON.parse(formattedJson));
                     resolve(data)
                 }catch (e) {
                     console.error(e)
@@ -67,7 +70,10 @@ class OcctlExec {
         return new Promise((resolve, reject) => {
             exec('occtl --json show users', async (error, stdout) => {
                 try{
-                    const data = await this.parseData(JSON.parse(stdout));
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
+                    const data = await this.parseData(JSON.parse(formattedJson));
                     resolve(data)
                 }catch (e) {
                     console.error(e)
@@ -81,7 +87,10 @@ class OcctlExec {
         return new Promise((resolve) => {
             exec('occtl --json show id '+id, async (error, stdout) => {
                 try{
-                    const data = await this.parseData(JSON.parse(stdout)) || [];
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
+                    const data = await this.parseData(JSON.parse(formattedJson)) || [];
                     resolve(data.length > 0?data[0]:{})
                 }catch (e) {
                     resolve({})
@@ -102,13 +111,9 @@ class OcctlExec {
         return new Promise((resolve) => {
             exec('occtl --json show sessions '+type, async (error, stdout) => {
                 try{
-                    const lastIndex = stdout.lastIndexOf(',');
-                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
-
                     const formattedJson = prettier.format(stdout, {
                         parser: 'json',
                     });
-
                     const data = await this.parseData(JSON.parse(formattedJson));
                     resolve(data)
                 }catch (e) {
@@ -123,10 +128,10 @@ class OcctlExec {
         return new Promise((resolve) => {
             exec('occtl --json show session '+id, async (error, stdout) => {
                 try{
-                    const lastIndex = stdout.lastIndexOf(',');
-                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
-                    jsonString = jsonString.replace("\"in_use\":  1,","\"in_use\":  1")
-                    const data = await this.parseData(JSON.parse(jsonString)) || [];
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
+                    const data = await this.parseData(JSON.parse(formattedJson)) || [];
                     resolve(data.length>0?data[0]:{})
                 }catch (e) {
                     console.info(stdout)
@@ -137,14 +142,15 @@ class OcctlExec {
         });
     }
 
-    async ipBans(tipe = ""){
+    async ipBans(type = ""){
         return new Promise((resolve) => {
-            exec('occtl --json show ip bans'+tipe, async (error, stdout) => {
+            exec('occtl --json show ip bans'+type, async (error, stdout) => {
                 try{
-                    const lastIndex = stdout.lastIndexOf(',');
-                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
 
-                    const data = await this.parseData(JSON.parse(jsonString));
+                    const data = await this.parseData(JSON.parse(formattedJson));
                     resolve(data)
                 }catch (e) {
                     resolve([])
@@ -157,8 +163,10 @@ class OcctlExec {
         return new Promise((resolve) => {
             exec('occtl --json show iroutes', async (error, stdout) => {
                 try{
-
-                    const data = await this.parseData(JSON.parse(stdout));
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
+                    const data = await this.parseData(JSON.parse(formattedJson));
                     resolve(data)
                 }catch (e) {
                     resolve([])
