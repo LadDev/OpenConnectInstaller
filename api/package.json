@@ -39,12 +39,15 @@
     "express-validator": "^6.15.0",
     "fs-extra": "^11.1.0",
     "input": "^1.0.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "8.5.1",
     "libphonenumber-js": "^1.10.24",
     "lodash": "^4.17.21",
     "mtproto": "^0.0.1",
     "multer": "^1.4.5-lts.1",
     "node-device-detector": "^2.0.12",
+    "npm": "^9.6.7",
+    "os-utils": "^0.0.14",
     "password-generator": "^2.3.2"
   }
 }

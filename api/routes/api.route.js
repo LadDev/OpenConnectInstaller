@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken")
 const authData = require("../config.json")
 const auth = require("../middleware/admin.middleware")
 const os = require('os');
+const osUtils = require('os-utils');
 
 const modifyData = async (data) => {
     let obj = {...data};
@@ -19,6 +20,14 @@ const modifyData = async (data) => {
     }
 
     return modifiedObj
+}
+
+async function getCpuUsage() {
+    return new Promise((resolve, reject) => {
+        osUtils.cpuUsage(function (usage) {
+            resolve(usage * 100);
+        });
+    });
 }
 
 const parseData = async (data) => {
@@ -56,11 +65,12 @@ router.get("/show/status", auth, async (req, res) => {
 
         const cpuInfo = os.cpus();
         const totalLoad = os.loadavg();
+        const cpuUsage = await getCpuUsage();
 
         exec('occtl --json show status', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, status: data, cpuInfo, totalLoad});
+                return res.status(200).json({code: 0, status: data, cpuInfo, totalLoad, cpuUsage});
             }catch (e) {
                 console.error(e)
                 return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
