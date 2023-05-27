@@ -126,13 +126,15 @@ class OcctlExec {
 
                     console.info("JSON",jsonString)
 
+                    jsonString = jsonString.replace("\"in_use\":  1,","\"in_use\":  1")
+
                     // const lastIndex = stdout.lastIndexOf(',');
                     // const secondLastIndex = stdout.lastIndexOf(',', lastIndex - 1);
                     // const formattedJson = stdout.substring(0, secondLastIndex) + stdout.substring(secondLastIndex + 1);
                     //
                     //
-                    // const data = await this.parseData(JSON.parse(formattedJson)) || [];
-                    resolve({})
+                    const data = await this.parseData(JSON.parse(jsonString)) || [];
+                    resolve(data.length>0?data[0]:{})
                 }catch (e) {
                     console.info(stdout)
                     console.error(e)
