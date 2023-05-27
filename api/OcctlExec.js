@@ -124,7 +124,7 @@ class OcctlExec {
                     // const lastIndex2 = jsonString.lastIndexOf(',');
                     // let jsonString2 = jsonString.slice(0, lastIndex2) + jsonString.slice(lastIndex2 + 1);
 
-                    console.info(jsonString)
+                    console.info("JSON",jsonString)
 
                     // const lastIndex = stdout.lastIndexOf(',');
                     // const secondLastIndex = stdout.lastIndexOf(',', lastIndex - 1);
