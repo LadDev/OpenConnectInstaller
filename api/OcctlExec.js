@@ -118,14 +118,20 @@ class OcctlExec {
         return new Promise((resolve) => {
             exec('occtl --json show session '+id, async (error, stdout) => {
                 try{
+                    // const lastIndex = stdout.lastIndexOf(',');
+                    // let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+                    //
+                    // const lastIndex2 = jsonString.lastIndexOf(',');
+                    // let jsonString2 = jsonString.slice(0, lastIndex2) + jsonString.slice(lastIndex2 + 1);
+
                     const lastIndex = stdout.lastIndexOf(',');
-                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+                    const secondLastIndex = stdout.lastIndexOf(',', lastIndex - 1);
 
-                    const lastIndex2 = jsonString.lastIndexOf(',');
-                    let jsonString2 = jsonString.slice(0, lastIndex2)/* + jsonString.slice(lastIndex2 + 1);*/
 
-                    console.info(jsonString2)
-                    const data = await this.parseData(JSON.parse(jsonString2)) || [];
+                    const formattedJson = stdout.substring(0, secondLastIndex) + stdout.substring(secondLastIndex + 1);
+
+                    console.info(formattedJson)
+                    const data = await this.parseData(JSON.parse(formattedJson)) || [];
                     resolve(data.length>0?data[0]:{})
                 }catch (e) {
                     console.info(stdout)
