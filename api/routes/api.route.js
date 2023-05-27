@@ -8,6 +8,7 @@ const authData = require("../config.json")
 const auth = require("../middleware/admin.middleware")
 const os = require('os');
 const osUtils = require('os-utils');
+const disk = require('diskusage');
 
 const modifyData = async (data) => {
     let obj = {...data};
@@ -23,9 +24,30 @@ const modifyData = async (data) => {
 }
 
 async function getCpuUsage() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         osUtils.cpuUsage(function (usage) {
             resolve(usage * 100);
+        });
+    });
+}
+
+async function getDiskUsage() {
+    return new Promise((resolve) => {
+
+        const path = '/'; // Путь к диску, для которого вы хотите получить информацию
+
+        disk.check(path, function(err, info) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            const total = info.total;
+            const free = info.available;
+            const used = total - free;
+            const usagePercent = (used / total) * 100;
+
+            resolve(Number(usagePercent.toFixed(2)));
         });
     });
 }
@@ -63,9 +85,8 @@ router.post("/auth", async (req, res) => {
 router.get("/show/status", auth, async (req, res) => {
     try {
 
-        const cpuInfo = os.cpus();
-        const totalLoad = os.loadavg();
         const cpuUsage = await getCpuUsage();
+        const diskUsage = await getDiskUsage();
 
         const platform = os.platform()
         const freemem = os.freemem()
@@ -74,7 +95,7 @@ router.get("/show/status", auth, async (req, res) => {
         exec('occtl --json show status', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, status: data, system: {platform, freemem, totalmem, cpuUsage}});
+                return res.status(200).json({code: 0, status: data, system: {platform, freemem, totalmem, cpuUsage, diskUsage}});
             }catch (e) {
                 console.error(e)
                 return res.status(500).json({code: -1, message: "Something went wrong, please try again"})

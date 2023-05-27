@@ -1,27 +1,36 @@
 import React, {useEffect, useState} from 'react';
-import { Card, CardBody, CardHeader, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col } from 'reactstrap';
 import {withTranslation} from "react-i18next";
 import PropTypes from "prop-types";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {SemiCircularRadial} from "./RadialbarCharts";
 
 const ServerUsage = (props) => {
-    const dispatch = useDispatch()
-    const {cpuUsageServer} = useSelector(state => ({
+    //const dispatch = useDispatch()
+    const {serverSystem} = useSelector(state => ({
         statusLoading: state.Occtl.statusLoading,
-        cpuUsageServer: state.Occtl.cpuUsage,
+        serverSystem: state.Occtl.system,
         error: state.Occtl.error,
     }));
 
     const [cpuUsage, setCpuUsage] = useState(0)
+    const [memUsage, setMemUsage] = useState(0)
 
 
     useEffect(()=>{
-        if(cpuUsageServer){
-            const formattedNumber = Number(cpuUsageServer).toFixed(2);
+        if(serverSystem && serverSystem.cpuUsage){
+            const formattedNumber = Number(serverSystem.cpuUsage).toFixed(2);
             setCpuUsage(Number(formattedNumber))
         }
-    },[cpuUsageServer])
+        if(serverSystem && serverSystem.totalmem && serverSystem.freemem){
+
+            const usedMemory = serverSystem.totalmem - serverSystem.freemem; // Объем использованной памяти
+            const memoryUsagePercent = (usedMemory / serverSystem.totalmem) * 100;
+
+            const formattedNumber = Number(memoryUsagePercent).toFixed(2);
+            setMemUsage(Number(formattedNumber))
+        }
+    },[serverSystem])
 
 
 
@@ -34,6 +43,16 @@ const ServerUsage = (props) => {
                     </CardHeader>
                     <CardBody>
                         <SemiCircularRadial dataColors='["--vz-primary"]' series={[cpuUsage?cpuUsage:0]} />
+                    </CardBody>
+                </Card>
+            </Col>
+            <Col xl={3} md={6}>
+                <Card>
+                    <CardHeader>
+                        <h4 className="card-title mb-0">{props.t("MEM Usage")}</h4>
+                    </CardHeader>
+                    <CardBody>
+                        <SemiCircularRadial dataColors='["--vz-primary"]' series={[memUsage?memUsage:0]} />
                     </CardBody>
                 </Card>
             </Col>
