@@ -1,5 +1,5 @@
 const {exec} = require("child_process");
-jsonlint = require("jsonlint");
+const prettier = require('prettier');
 class OcctlExec {
     async start(){
         return new Promise((resolve) => {
@@ -105,8 +105,10 @@ class OcctlExec {
                     const lastIndex = stdout.lastIndexOf(',');
                     let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-                    const formattedJsonString = jsonlint.parse(jsonString);
-                    console.log(formattedJsonString);
+                    const formattedJson = prettier.format(stdout, {
+                        parser: 'json',
+                    });
+                    console.log(formattedJson);
 
                     const data = await this.parseData(JSON.parse(jsonString));
                     resolve(data)
