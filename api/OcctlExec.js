@@ -124,13 +124,13 @@ class OcctlExec {
                     // const lastIndex2 = jsonString.lastIndexOf(',');
                     // let jsonString2 = jsonString.slice(0, lastIndex2) + jsonString.slice(lastIndex2 + 1);
 
+                    console.info(stdout)
+
                     const lastIndex = stdout.lastIndexOf(',');
                     const secondLastIndex = stdout.lastIndexOf(',', lastIndex - 1);
-
-
                     const formattedJson = stdout.substring(0, secondLastIndex) + stdout.substring(secondLastIndex + 1);
 
-                    console.info(formattedJson)
+
                     const data = await this.parseData(JSON.parse(formattedJson)) || [];
                     resolve(data.length>0?data[0]:{})
                 }catch (e) {
