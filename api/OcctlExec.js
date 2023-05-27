@@ -114,6 +114,22 @@ class OcctlExec {
         });
     }
 
+    async session(id = null){
+        return new Promise((resolve) => {
+            exec('occtl --json show session '+id, async (error, stdout) => {
+                try{
+                    const lastIndex = stdout.lastIndexOf(',');
+                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+
+                    const data = await this.parseData(JSON.parse(jsonString)) || [];
+                    resolve(data.length>0?data[0]:{})
+                }catch (e) {
+                    resolve({})
+                }
+            });
+        });
+    }
+
     async ipBans(tipe = ""){
         return new Promise((resolve) => {
             exec('occtl --json show ip bans'+tipe, async (error, stdout) => {

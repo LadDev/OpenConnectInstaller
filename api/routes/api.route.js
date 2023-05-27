@@ -133,7 +133,18 @@ router.get("/show/sessions/valid", auth, async (req, res) => {
     } catch (error) {
         res.status(500).json({code: -1, message: "Something went wrong, please try again"})
     }
+})
 
+router.get("/show/session/:id", auth, async (req, res) => {
+    try {
+
+        const {id} = req.params
+
+        const session = await occtlExec.session(id)
+        return res.status(200).json({code: 0, session: session});
+    } catch (error) {
+        res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+    }
 })
 
 router.get("/show/ip/bans", auth, async (req, res) => {
