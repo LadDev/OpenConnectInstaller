@@ -1,6 +1,7 @@
 import { APIClient } from "./api_helper";
 
 import * as url from "./url_helper";
+import {POST_GET_ALL_SESSIONS} from "./url_helper";
 
 const api = new APIClient();
 
@@ -30,3 +31,4 @@ export const postUpdateUSer = (data) => api.create(url.POST_UPDATE_USER,data);
 export const postAddUSer = (data) => api.create(url.POST_ADD_USER,data);
 export const postDeleteUSer = (data) => api.create(url.POST_DELETE_USER,data);
 export const getUserSession = (data) => api.get(url.POST_GET_USER_SESSION+data);
+export const getSessions = () => api.get(url.POST_GET_ALL_SESSIONS);

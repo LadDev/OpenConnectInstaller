@@ -14,7 +14,7 @@ import {
   OCCTL_RELOAD,
   OCCTL_USER_SESSION,
   OCCTL_USER_SESSION_SUCCESS,
-  OCCTL_USER_SESSION_ERROR,
+  OCCTL_USER_SESSION_ERROR, OCCTL_SESSIONS_SUCCESS,
 } from "./actionTypes";
 
 const INIT_STATE = {
@@ -26,7 +26,8 @@ const INIT_STATE = {
   usersFile: [],
   user: null,
   error: {},
-  session: null
+  session: null,
+  sessions: []
 };
 
 const Occtl = (state = INIT_STATE, action) => {
@@ -128,6 +129,11 @@ const Occtl = (state = INIT_STATE, action) => {
       return {
         ...state,
         session: null
+      }
+    case OCCTL_SESSIONS_SUCCESS:
+      return {
+        ...state,
+        sessions: action.payload.sessions
       }
     case OCCTL_STOP_NOW:
       return {

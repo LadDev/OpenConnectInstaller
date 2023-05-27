@@ -6,9 +6,10 @@ import {useSelector} from "react-redux";
 import UserCardModal from "./Modals/UserCardModal";
 
 const UsersConnected = (props) => {
-    const {serverUsers} = useSelector(state => ({
+    const {serverUsers, serverSessions} = useSelector(state => ({
         loading: state.Occtl.usersLoading,
         serverUsers: state.Occtl.users,
+        serverSessions: state.Occtl.sessions,
         error: state.Occtl.error,
     }));
 
@@ -17,9 +18,36 @@ const UsersConnected = (props) => {
 
     useEffect(()=>{
         if(serverUsers !== users){
-            setUsers(serverUsers)
+            let userTMP = []
+
+            for(const usr of serverUsers){
+                userTMP.push({...usr, useragent: ""})
+            }
+
+            setUsers([...userTMP])
         }
-    },[serverUsers, users])
+    },[serverUsers])
+
+    useEffect(()=>{
+        if(serverSessions && serverSessions !== []){
+            let userTMP = []
+
+            for(const usr of serverUsers){
+
+                const session = serverSessions.filter(sess=>sess.session===usr.session)
+
+                let useragent = "unknown"
+
+                if(session && session.length > 0){
+                    useragent = session[0].useragent
+                }
+
+                userTMP.push({...usr, useragent})
+            }
+
+            setUsers([...userTMP])
+        }
+    },[serverSessions,serverUsers])
 
     const [userCardModal, setUserCardModal] = useState(false)
 
@@ -50,6 +78,7 @@ const UsersConnected = (props) => {
                                     <tr className="text-muted">
                                         <th scope="col">{props.t("ID")}</th>
                                         <th scope="col">{props.t("Username")}</th>
+                                        <th scope="col">{props.t("UserAgent")}</th>
                                         <th scope="col">{props.t("Session")}</th>
                                         <th scope="col">{props.t("Groupname")}</th>
                                         <th scope="col">{props.t("State")}</th>
@@ -72,6 +101,7 @@ const UsersConnected = (props) => {
                                     <tr key={index} onClick={()=>{showUser(user)}} style={{cursor: "pointer"}}>
                                         <td>{user.id}</td>
                                         <td>{user.username}</td>
+                                        <td>{user.useragent}</td>
                                         <td>{user.session}</td>
                                         <td>{user.groupname}</td>
                                         <td>{user.state}</td>

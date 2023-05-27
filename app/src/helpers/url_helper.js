@@ -235,3 +235,4 @@ export const POST_UPDATE_USER = "/api/edit/user";
 export const POST_ADD_USER = "/api/add/user";
 export const POST_DELETE_USER = "/api/delete/user";
 export const POST_GET_USER_SESSION = "/api/show/session/";
+export const POST_GET_ALL_SESSIONS = "/api/show/sessions/all";

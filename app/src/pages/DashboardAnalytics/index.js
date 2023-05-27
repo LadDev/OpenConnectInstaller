@@ -5,7 +5,7 @@ import {withTranslation} from "react-i18next";
 //import COmponents
 import BreadCrumb from '../../Components/Common/BreadCrumb';
 import {useDispatch} from "react-redux";
-import {fetchOcctlStatus, fetchOcctlUsers} from "../../store/occtl/actions";
+import {fetchOcctlSessions, fetchOcctlStatus, fetchOcctlUsers} from "../../store/occtl/actions";
 import ServerStatus from "./Status";
 import UsersConnected from "./UsersConnected";
 import UserList from "./UserList";
@@ -19,9 +19,11 @@ const DashboardAnalytics = (props) => {
     useEffect(()=>{
         dispatch(fetchOcctlStatus())
         dispatch(fetchOcctlUsers())
+        dispatch(fetchOcctlSessions())
         let interval = setInterval(()=>{
             dispatch(fetchOcctlStatus())
             dispatch(fetchOcctlUsers())
+            dispatch(fetchOcctlSessions())
         }, 5000)
         return () => clearInterval(interval);
     },[])

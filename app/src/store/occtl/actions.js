@@ -14,7 +14,7 @@ import {
     OCCTL_GET_USERS_ERROR,
     OCCTL_GET_USERS_SUCCESS,
     OCCTL_RELOAD,
-    OCCTL_RESET,
+    OCCTL_RESET, OCCTL_SESSIONS, OCCTL_SESSIONS_ERROR, OCCTL_SESSIONS_SUCCESS,
     OCCTL_START,
     OCCTL_STOP_NOW,
     OCCTL_UPDATE_USER,
@@ -163,6 +163,26 @@ export const occtlGetUserSessionSuccess = (data) => {
 export const occtlGetUserSessionError = (error) => {
     return {
         type: OCCTL_USER_SESSION_ERROR,
+        payload: error
+    }
+}
+
+export const fetchOcctlSessions = () => {
+    return {
+        type: OCCTL_SESSIONS,
+    }
+}
+
+export const fetchOcctlSessionsSuccess = (data) => {
+    return {
+        type: OCCTL_SESSIONS_SUCCESS,
+        payload: data
+    }
+}
+
+export const fetchOcctlSessionsError = (error) => {
+    return {
+        type: OCCTL_SESSIONS_ERROR,
         payload: error
     }
 }
