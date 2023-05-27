@@ -90,31 +90,48 @@ const UserCardModal = (props) => {
                                         <div className="flex-shrink-0"><p className="mb-0">{user.username}</p></div>
                                     </div>
 
-                                    {deviceInfo.length>0?(
-                                        <div className="d-flex">
-                                            <div className="flex-grow-1">
-                                                <p className="text-truncate text-muted fs-14 mb-0">{props.t("Application")}</p>
+                                    {deviceInfo.length>=4?(
+                                        <React.Fragment>
+                                            <div className="d-flex">
+                                                <div className="flex-grow-1">
+                                                    <p className="text-truncate text-muted fs-14 mb-0">{props.t("Application")}</p>
+                                                </div>
+                                                <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[0]}</p></div>
                                             </div>
-                                            <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[0]}</p></div>
-                                        </div>
-                                    ):("")}
-
-                                    {deviceInfo.length>2?(
-                                        <div className="d-flex">
-                                            <div className="flex-grow-1">
-                                                <p className="text-truncate text-muted fs-14 mb-0">{props.t("App Version")}</p>
+                                            <div className="d-flex">
+                                                <div className="flex-grow-1">
+                                                    <p className="text-truncate text-muted fs-14 mb-0">{props.t("App Version")}</p>
+                                                </div>
+                                                <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[3]}</p></div>
                                             </div>
-                                            <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[3]}</p></div>
-                                        </div>
-                                    ):("")}
-
-                                    {deviceInfo.length>3?(
-                                        <div className="d-flex">
-                                            <div className="flex-grow-1">
-                                                <p className="text-truncate text-muted fs-14 mb-0">{props.t("User Device")}</p>
+                                            <div className="d-flex">
+                                                <div className="flex-grow-1">
+                                                    <p className="text-truncate text-muted fs-14 mb-0">{props.t("User Device")}</p>
+                                                </div>
+                                                <div className="flex-shrink-0"><p className="mb-0 bold">{deviceInfo[2].replace("(", "").replace(")"," ")}</p></div>
                                             </div>
-                                            <div className="flex-shrink-0"><p className="mb-0 bold">{deviceInfo[2].replace("(", "").replace(")"," ")}</p></div>
-                                        </div>
+                                        </React.Fragment>
+                                    ):deviceInfo.length>=3?(
+                                        <React.Fragment>
+                                            <div className="d-flex">
+                                                <div className="flex-grow-1">
+                                                    <p className="text-truncate text-muted fs-14 mb-0">{props.t("Application")}</p>
+                                                </div>
+                                                <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[0]}</p></div>
+                                            </div>
+                                            <div className="d-flex">
+                                                <div className="flex-grow-1">
+                                                    <p className="text-truncate text-muted fs-14 mb-0">{props.t("App Version")}</p>
+                                                </div>
+                                                <div className="flex-shrink-0"><p className="mb-0">{deviceInfo[2]}</p></div>
+                                            </div>
+                                            <div className="d-flex">
+                                                <div className="flex-grow-1">
+                                                    <p className="text-truncate text-muted fs-14 mb-0">{props.t("User Device")}</p>
+                                                </div>
+                                                <div className="flex-shrink-0"><p className="mb-0 bold">{deviceInfo[1].replace("(", "").replace(")"," ")}</p></div>
+                                            </div>
+                                        </React.Fragment>
                                     ):("")}
 
                                     <br />
