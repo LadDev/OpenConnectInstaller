@@ -69,7 +69,7 @@ router.get("/show/status", auth, async (req, res) => {
 
         const platform = os.platform()
         const freemem = os.freemem()
-        const totalmem = os.freememPercentage()
+        const totalmem = os.totalmem()
 
         exec('occtl --json show status', async (error, stdout) => {
             try{
