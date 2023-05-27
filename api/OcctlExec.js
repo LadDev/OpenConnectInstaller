@@ -108,9 +108,8 @@ class OcctlExec {
                     const formattedJson = prettier.format(stdout, {
                         parser: 'json',
                     });
-                    console.log(formattedJson);
 
-                    const data = await this.parseData(JSON.parse(jsonString));
+                    const data = await this.parseData(JSON.parse(formattedJson));
                     resolve(data)
                 }catch (e) {
                     console.error(e)
