@@ -41,6 +41,7 @@
     "fs-extra": "^11.1.0",
     "input": "^1.0.1",
     "install": "^0.13.0",
+    "jsonlint": "^1.6.3",
     "jsonwebtoken": "8.5.1",
     "libphonenumber-js": "^1.10.24",
     "lodash": "^4.17.21",

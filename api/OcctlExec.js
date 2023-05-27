@@ -1,5 +1,5 @@
 const {exec} = require("child_process");
-
+const format = require("jsonlint");
 class OcctlExec {
     async start(){
         return new Promise((resolve) => {
@@ -105,7 +105,8 @@ class OcctlExec {
                     const lastIndex = stdout.lastIndexOf(',');
                     let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
-                    console.info(jsonString)
+                    const formattedJsonString = format(stdout);
+                    console.log(formattedJsonString);
 
                     const data = await this.parseData(JSON.parse(jsonString));
                     resolve(data)
