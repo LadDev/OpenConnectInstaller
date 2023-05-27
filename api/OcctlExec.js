@@ -123,6 +123,7 @@ class OcctlExec {
                     const data = await this.parseData(JSON.parse(jsonString)) || [];
                     resolve(data.length>0?data[0]:{})
                 }catch (e) {
+                    console.info(stdout)
                     console.error(e)
                     resolve({})
                 }
