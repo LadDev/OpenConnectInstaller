@@ -9,6 +9,7 @@ const auth = require("../middleware/admin.middleware")
 const os = require('os');
 const osUtils = require('os-utils');
 const disk = require('diskusage');
+const OcctlExec = require("../OcctlExec");
 
 const modifyData = async (data) => {
     let obj = {...data};
@@ -66,6 +67,8 @@ const parseData = async (data) => {
     return modifiedData
 }
 
+const occtlExec = new OcctlExec()
+
 router.post("/auth", async (req, res) => {
     try {
 
@@ -92,15 +95,18 @@ router.get("/show/status", auth, async (req, res) => {
         const freemem = os.freemem()
         const totalmem = os.totalmem()
 
-        exec('occtl --json show status', async (error, stdout) => {
-            try{
-                const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, status: data, system: {platform, freemem, totalmem, cpuUsage, diskUsage}});
-            }catch (e) {
-                console.error(e)
-                return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
-            }
-        });
+        const status = await occtlExec.status()
+
+        return res.status(200).json({code: 0, status, system: {platform, freemem, totalmem, cpuUsage, diskUsage}});
+        // exec('occtl --json show status', async (error, stdout) => {
+        //     try{
+        //         const data = await parseData(JSON.parse(stdout));
+        //         return res.status(200).json({code: 0, status: data, system: {platform, freemem, totalmem, cpuUsage, diskUsage}});
+        //     }catch (e) {
+        //         console.error(e)
+        //         return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
+        //     }
+        // });
     } catch (error) {
         console.error(error)
         return res.status(500).json({code: -1, message: "Something went wrong, please try again"})

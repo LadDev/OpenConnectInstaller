@@ -15,6 +15,7 @@ const ServerUsage = (props) => {
 
     const [cpuUsage, setCpuUsage] = useState(0)
     const [memUsage, setMemUsage] = useState(0)
+    const [diskUsage, setDiskUsage] = useState(0)
 
 
     useEffect(()=>{
@@ -29,6 +30,11 @@ const ServerUsage = (props) => {
 
             const formattedNumber = Number(memoryUsagePercent).toFixed(2);
             setMemUsage(Number(formattedNumber))
+        }
+        if(serverSystem && serverSystem.diskUsage){
+
+            const formattedNumber = Number(serverSystem.diskUsage).toFixed(2);
+            setDiskUsage(Number(formattedNumber))
         }
     },[serverSystem])
 
@@ -53,6 +59,16 @@ const ServerUsage = (props) => {
                     </CardHeader>
                     <CardBody>
                         <SemiCircularRadial dataColors='["--vz-primary"]' series={[memUsage?memUsage:0]} />
+                    </CardBody>
+                </Card>
+            </Col>
+            <Col xl={3} md={6}>
+                <Card>
+                    <CardHeader>
+                        <h4 className="card-title mb-0">{props.t("Disk Usage")}</h4>
+                    </CardHeader>
+                    <CardBody>
+                        <SemiCircularRadial dataColors='["--vz-primary"]' series={[diskUsage?diskUsage:0]} />
                     </CardBody>
                 </Card>
             </Col>
