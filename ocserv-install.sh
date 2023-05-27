@@ -921,6 +921,14 @@ cd ..
 
 sudo systemctl status ocserv
 
+#sudo apt install sysstat -y
+#
+#
+#
+#sudo systemctl daemon-reload
+#sudo systemctl enable sysstat
+#sudo systemctl start sysstat
+
 echo "Compile APP and move files from directory app/build to $webdir and Open http://$domain:10034 using your email $email and password $PASSGEN"
 echo "Please change password for web access in file api/config.json"
 # Перезагрузка системы

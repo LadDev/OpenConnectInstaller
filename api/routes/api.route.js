@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const authData = require("../config.json")
 const auth = require("../middleware/admin.middleware")
-
+const os = require('os');
 
 const modifyData = async (data) => {
     let obj = {...data};
@@ -53,10 +53,14 @@ router.post("/auth", async (req, res) => {
 
 router.get("/show/status", auth, async (req, res) => {
     try {
+
+        const cpuInfo = os.cpus();
+        const totalLoad = os.loadavg();
+
         exec('occtl --json show status', async (error, stdout) => {
             try{
                 const data = await parseData(JSON.parse(stdout));
-                return res.status(200).json({code: 0, status: data});
+                return res.status(200).json({code: 0, status: data, cpuInfo, totalLoad});
             }catch (e) {
                 console.error(e)
                 return res.status(500).json({code: -1, message: "Something went wrong, please try again"})
