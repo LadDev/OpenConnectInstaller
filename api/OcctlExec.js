@@ -105,9 +105,12 @@ class OcctlExec {
                     const lastIndex = stdout.lastIndexOf(',');
                     let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
 
+                    console.info(jsonString)
+
                     const data = await this.parseData(JSON.parse(jsonString));
                     resolve(data)
                 }catch (e) {
+                    console.error(e)
                     resolve([])
                 }
             });
@@ -120,19 +123,7 @@ class OcctlExec {
                 try{
                     const lastIndex = stdout.lastIndexOf(',');
                     let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
-                    //
-                    // const lastIndex2 = jsonString.lastIndexOf(',');
-                    // let jsonString2 = jsonString.slice(0, lastIndex2) + jsonString.slice(lastIndex2 + 1);
-
-                    console.info("JSON",jsonString)
-
                     jsonString = jsonString.replace("\"in_use\":  1,","\"in_use\":  1")
-
-                    // const lastIndex = stdout.lastIndexOf(',');
-                    // const secondLastIndex = stdout.lastIndexOf(',', lastIndex - 1);
-                    // const formattedJson = stdout.substring(0, secondLastIndex) + stdout.substring(secondLastIndex + 1);
-                    //
-                    //
                     const data = await this.parseData(JSON.parse(jsonString)) || [];
                     resolve(data.length>0?data[0]:{})
                 }catch (e) {
