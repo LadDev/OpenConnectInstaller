@@ -1,6 +1,54 @@
 const {exec} = require("child_process");
 
 class OcctlExec {
+    async start(){
+        return new Promise((resolve) => {
+            exec('sudo systemctl restart ocserv', async () => {
+                try{
+                    resolve(0)
+                }catch (e) {
+                    resolve(-1)
+                }
+            });
+        });
+    }
+
+    async reload(){
+        return new Promise((resolve) => {
+            exec('occtl reload', async () => {
+                try{
+                    resolve(0)
+                }catch (e) {
+                    resolve(-1)
+                }
+            });
+        });
+    }
+
+    async reset(){
+        return new Promise((resolve) => {
+            exec('occtl reset', async () => {
+                try{
+                    resolve(0)
+                }catch (e) {
+                    resolve(-1)
+                }
+            });
+        });
+    }
+
+    async stop(){
+        return new Promise((resolve) => {
+            exec('occtl stop now', async () => {
+                try{
+                    resolve(0)
+                }catch (e) {
+                    resolve(-1)
+                }
+            });
+        });
+    }
+
     async status(){
         return new Promise((resolve, reject) => {
             exec('occtl --json show status', async (error, stdout) => {
@@ -24,6 +72,73 @@ class OcctlExec {
                 }catch (e) {
                     console.error(e)
                     reject("Something went wrong, please try again")
+                }
+            });
+        });
+    }
+
+    async user(id){
+        return new Promise((resolve) => {
+            exec('occtl --json show id '+id, async (error, stdout) => {
+                try{
+                    const data = await this.parseData(JSON.parse(stdout)) || [];
+                    resolve(data.length > 0?data[0]:{})
+                }catch (e) {
+                    resolve({})
+                }
+            });
+        });
+    }
+
+    async disconnectUser(id){
+        return new Promise((resolve) => {
+            exec('occtl --json disconnect id '+id, async () => {
+                resolve({})
+            });
+        });
+    }
+
+    async sessions(type = "all"){
+        return new Promise((resolve) => {
+            exec('occtl --json show sessions '+type, async (error, stdout) => {
+                try{
+                    const lastIndex = stdout.lastIndexOf(',');
+                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+
+                    const data = await this.parseData(JSON.parse(jsonString));
+                    resolve(data)
+                }catch (e) {
+                    resolve([])
+                }
+            });
+        });
+    }
+
+    async ipBans(tipe = ""){
+        return new Promise((resolve) => {
+            exec('occtl --json show ip bans'+tipe, async (error, stdout) => {
+                try{
+                    const lastIndex = stdout.lastIndexOf(',');
+                    let jsonString = stdout.slice(0, lastIndex) + stdout.slice(lastIndex + 1);
+
+                    const data = await this.parseData(JSON.parse(jsonString));
+                    resolve(data)
+                }catch (e) {
+                    resolve([])
+                }
+            });
+        });
+    }
+
+    async iroutes(){
+        return new Promise((resolve) => {
+            exec('occtl --json show iroutes', async (error, stdout) => {
+                try{
+
+                    const data = await this.parseData(JSON.parse(stdout));
+                    resolve(data)
+                }catch (e) {
+                    resolve([])
                 }
             });
         });
