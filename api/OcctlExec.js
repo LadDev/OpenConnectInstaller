@@ -35,7 +35,7 @@ class OcctlExec {
                 modifiedData.push(await this.modifyData(obj))
             }
         }else if(data instanceof Object){
-            modifiedData =  await modifyData(data)
+            modifiedData =  await this.modifyData(data)
         }
 
         return modifiedData
