@@ -1,5 +1,5 @@
 const {exec} = require("child_process");
-const format = require("jsonlint");
+const {format} = require("jsonlint");
 class OcctlExec {
     async start(){
         return new Promise((resolve) => {
