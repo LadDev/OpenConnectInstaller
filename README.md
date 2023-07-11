@@ -4,9 +4,7 @@ OpenConnect VPN is an open source implementation of the Cisco
 AnyConnect VPN protocol, which is widely used in enterprises and
 universities.
 
-```
 For the best VPN server organization we recommend hosting company [Fofnex.com](https://fornex.com/c/fff118/)
-```
 
 Features:
 - Lightweight and fast.
